@@ -1,0 +1,25 @@
+<header fxLayout="row" fxLayoutAlign="center center">
+  <div class="logo" fxFlex>
+    RentCars
+  </div>
+  <div fxLayoutGap="15">
+    <button  routerLink="/Auta-Do-Wynajmu"> Samochody</button>
+    <button mat-button color="warn" routerLink="/rent"> Wynajmij</button>
+    <button mat-button routerLink="/login"> Zaloguj</button>
+  </div>
+</header>
+<div class="main" fxLayout="column">
+  <div class="task-bar">
+    <div class="content">
+      FILTRY - samochody - sortowanie
+    </div>
+  </div>
+  <div class="content">
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+<footer>
+  stopka
+</footer>

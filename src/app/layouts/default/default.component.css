@@ -1,0 +1,33 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  margin: -8px;
+}
+
+header {
+  background-color: black;
+  padding: 10px 50px;
+}
+
+.logo {
+  color: white;
+}
+
+footer {
+  background-color: #2f2f2f;
+  padding: 10px 50px;
+  color: white;
+}
+
+.main {
+  background-color: #9a9a9a;
+}
+
+.task-bar {
+  background-color: white;
+}
+
+.content {
+  width: 1400px;
+  margin: 0 auto;
+}

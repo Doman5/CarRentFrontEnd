@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTable} from "@angular/material/table";
-import {AdminBasicInfo} from "./model/admin-basic-info";
+import {AdminCarBasicInfo} from "./model/admin-basic-info";
 import {AdminCarService} from "./admin-car.service";
 import {map, startWith, switchMap} from "rxjs";
 
@@ -16,7 +16,7 @@ export class AdminCarComponent implements AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<any>
   displayedColumns: string[] = ["id", "brand", "model", "year", "type", "actions"];
   totalElements: number = 0;
-  data: AdminBasicInfo[] = [];
+  data: AdminCarBasicInfo[] = [];
 
   constructor(private adminCarService: AdminCarService) {
   }
@@ -35,7 +35,7 @@ export class AdminCarComponent implements AfterViewInit {
   }
 
 
-  confirmDelete(car: AdminBasicInfo) {
+  confirmDelete(car: AdminCarBasicInfo) {
 
   }
 

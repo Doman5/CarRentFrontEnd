@@ -1,0 +1,176 @@
+<h1> Edycja Auta</h1>
+<form fxLayout="column" [formGroup]="carBasicForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Marka</mat-label>
+      <input matInput placeholder="Podaj marke auta" formControlName="brand">
+      <div *ngIf="brand?.invalid && (brand?.dirty || brand?.touched)">
+        <div *ngIf="brand?.errors?.['required']" class="errorMessage">
+          Nazwa jest wymagana
+        </div>
+      </div>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Model</mat-label>
+      <input matInput placeholder="Podaj model auta" formControlName="model">
+      <div *ngIf="model?.invalid && (model?.dirty || model?.touched)">
+        <div *ngIf="model?.errors?.['required']" class="errorMessage">
+          Model jest wymagana
+        </div>
+      </div>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Rok</mat-label>
+      <input matInput placeholder="Podaj rok auta" formControlName="year">
+      <div *ngIf="year?.invalid && (year?.dirty || year?.touched)">
+        <div *ngIf="year?.errors?.['required']" class="errorMessage">
+          Rok jest wymagana
+        </div>
+        <div *ngIf="year?.errors?.['min']" class="errorMessage">
+          Rok musi być większy od 0
+        </div>
+      </div>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Typ nadwozia</mat-label>
+      <mat-select formControlName="bodyType">
+        <mat-option *ngFor="let el of types" [value]="el">
+          {{el}}
+        </mat-option>
+      </mat-select>
+      <div *ngIf="type?.invalid && (type?.dirty || type?.touched)">
+        <div *ngIf="type?.errors?.['required']" class="errorMessage">
+          Typ nadwozia jest wymagany
+        </div>
+      </div>
+    </mat-form-field>
+    <button mat-button (click)="submitCarBasicInfo()"> Edytuj Podstawowe informacje</button>
+</form>
+
+<!--specyfikacja techniczna -->
+<form fxLayout="column" [formGroup]="technicalSpecificationForm">
+    
+      <mat-form-field>
+        <mat-label>Moc</mat-label>
+        <input matInput placeholder="Podaj moc auta" formControlName="power">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Silnik</mat-label>
+        <input matInput placeholder="Podaj silnik auta" formControlName="engine">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Napęd</mat-label>
+        <input matInput placeholder="Podaj napęd auta" formControlName="drive">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Przyśpieszenie w sekundach</mat-label>
+        <input matInput placeholder="Podaj przyśpieszenie auta" formControlName="acceleration">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Skrzynia biegów</mat-label>
+        <input matInput placeholder="Podaj skrzynie biegów" formControlName="gearbox">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Paliwo</mat-label>
+        <input matInput placeholder="Podaj paliwo auta" formControlName="fuel">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Ilość miejsc</mat-label>
+        <input matInput placeholder="Podaj ilość miejsc w aucie" formControlName="seats">
+      </mat-form-field>
+
+      <button mat-button (click)="submitCarTechSpec()"> Edytuj specyfikacje techniczną</button>
+</form>
+<!-- // wyposażenie -->
+<form fxLayout="column" [formGroup]="carEquipmentForm">
+    <h2> Wyposażenie</h2>
+<!--    <div formArrayName="equipments">-->
+<!--      <div *ngFor="let equipment of carForm.get('equipments').controls; index as i">-->
+<!--        <input matInput [formControlName]="i">-->
+<!--      </div>-->
+<!--    </div>-->
+    <button mat-button (click)="submitCarEquipment()"> Edytuj Wyposażenie</button>
+</form>
+
+<!-- // opis -->
+<form fxLayout="column" [formGroup]="carDescriptionForm">
+    <h2> Opis </h2>
+<!--    <div formArrayName="descriptions">-->
+<!--      <div *ngFor="let description of carForm.get('descriptions').controls; index as i">-->
+<!--        <input type="text" [formControlName]="i">-->
+<!--      </div>-->
+<!--    </div>-->
+    <button mat-button (click)="submitCarDescription()"> Edytuj Opisy</button>
+</form>
+
+<!-- // cena -->
+<form [formGroup]="carPriceForm" fxLayout="column">
+    <h2> Ceny </h2>
+    <mat-form-field appearance="fill">
+        <mat-label>Cena przy wynajmie na dzień</mat-label>
+        <input matInput placeholder="Podaj cenę przy wynajmie na dzień" formControlName="priceDay">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Cena przy wynajmie na 3 - 7 dni</mat-label>
+        <input matInput placeholder="Podaj cenę przy wynajmie na pół tygonia" formControlName="priceHalfWeek">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Cena przy wynajmie na tydzień</mat-label>
+        <input matInput placeholder="Podaj cene przy wynajmie na tydzień" formControlName="priceWeek">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Cena przy wynajmie na dwa tygodnie</mat-label>
+        <input matInput placeholder="Podaj cene przy wynajmie na dwa tygodnie" formControlName="priceTwoWeeks">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Cena przy wynajmie na miesiąc</mat-label>
+        <input matInput placeholder="Podaj cene przy wynajmie na miesiąc" formControlName="priceMonth">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Kaucja</mat-label>
+        <input matInput placeholder="Podaj kaucje" formControlName="deposit">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Dzienny limit kilometrów</mat-label>
+        <input matInput placeholder="Podaj dzienny limit kilometów" formControlName="distanceLimit">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Cena za dodatkowy kilomet</mat-label>
+        <input matInput placeholder="Podaj cene za dodatkowy kilomet" formControlName="distanceLimitPenalty">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Cena za kilometr transportu</mat-label>
+        <input matInput placeholder="Podaj cene za kilometr transportu" formControlName="transportPricePerKm">
+    </mat-form-field>
+    <button mat-button (click)="submitCarPrice()"> Edytuj ceny</button>
+</form>
+
+    <!-- //kategoria -->
+<form [formGroup]="categoryForm">
+    <mat-form-field appearance="fill">
+        <mat-label>Kategoria</mat-label>
+        <mat-select formControlName="name">
+          <mat-option *ngFor="let cat of categories" [value]="cat.name">
+            {{cat.name}}
+          </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button mat-button (click)="submitCategory()"> Edytuj kategorie</button>
+</form>
+

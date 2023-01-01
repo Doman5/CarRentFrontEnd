@@ -1,0 +1,9 @@
+<h1> Dodaj kategorie </h1>
+
+<form [formGroup]="categoryForm" (submit)="submit()" fxLayout="column">      
+    <mat-form-field>
+      <mat-label>Nazwa kategorii</mat-label>
+      <input matInput placeholder="Wpisz nazwę kategorii" formControlName="name">
+    </mat-form-field>  
+    <button mat-stroked-button> Dodaj kategorie</button>
+</form>

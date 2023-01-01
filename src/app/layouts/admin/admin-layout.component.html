@@ -7,8 +7,13 @@
   </div>
 </header>
 <div class="main" fxLayout="row" fxFlex>
-  <div class="side-bar" fxFlex="15">
+  <div class="side-bar" fxFlex="15" fxLayout="column">
     <button mat-button routerLink="/admin/cars"> Samochody </button>
+    <button mat-button routerLink="/admin/cars"> Status samochodów </button>
+    <button mat-button routerLink="/admin/categories"> Kategorie </button>
+    <button mat-button routerLink="/admin/rent-history"> Historia wynajmów </button>
+    <button mat-button routerLink="/admin/rent-statuses"> Status wynajmów </button>
+    <button mat-button routerLink="/admin/stats"> Statystki </button>
   </div>
   <div class="content" fxFlex="85">
     <router-outlet></router-outlet>

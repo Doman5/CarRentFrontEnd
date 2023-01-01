@@ -3,12 +3,15 @@ import {CommonModule} from '@angular/common';
 import {AdminLayoutComponent} from "./admin-layout.component";
 import {RouterModule} from "@angular/router";
 import {FlexLayoutModule} from "@angular/flex-layout";
-import {AdminCarComponent} from "../../modules/admin/admincar/admin-car.component";
+import {AdminCarComponent} from "../../modules/admin/admin-car/admin-car.component";
 import {MaterialModule} from "../../shared/material.module";
-import {AdminCarAddComponent} from "../../modules/admin/admincar/admin-car-add/admin-car-add.component";
+import {AdminCarAddComponent} from "../../modules/admin/admin-car/admin-car-add/admin-car-add.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { AdminCarUpdateComponent } from 'src/app/modules/admin/admincar/admin-car-update/admin-car-update.component';
+import { AdminCarUpdateComponent } from 'src/app/modules/admin/admin-car/admin-car-update/admin-car-update.component';
 import { AdminConfirmDialogComponent } from 'src/app/modules/common/component/admin-confirm-dialog/admin-confirm-dialog.component';
+import { AdminCategoryAddComponent } from 'src/app/modules/admin/admin-category/admin-category-add/admin-category-add.component';
+import { AdminCategoryComponent } from 'src/app/modules/admin/admin-category/admin-category.component';
+import { AdminCategoryUpdateComponent } from 'src/app/modules/admin/admin-category/admin-category-update/admin-category-update.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { AdminConfirmDialogComponent } from 'src/app/modules/common/component/ad
     AdminCarComponent,
     AdminCarAddComponent,
     AdminCarUpdateComponent,
-    AdminConfirmDialogComponent
+    AdminConfirmDialogComponent,
+    AdminCategoryAddComponent,
+    AdminCategoryComponent,
+    AdminCategoryUpdateComponent
   ],
   imports: [
     CommonModule,

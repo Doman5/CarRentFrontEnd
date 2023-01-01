@@ -1,2 +1,4 @@
-export interface Page {
+export interface Page<T> {
+  content: T[],
+    totalElements: number
 }

@@ -5,7 +5,10 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {DefaultModule} from "./layouts/default/default.module";
 import {AdminLayoutModule} from "./layouts/admin/admin-layout.module";
-import { FlexLayoutModule } from '@angular/flex-layout';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {HttpClientModule} from "@angular/common/http";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { AdminCarUpdateComponent } from './modules/admin/admincar/admin-car-update/admin-car-update.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     AppRoutingModule,
     FlexLayoutModule,
     DefaultModule,
-    AdminLayoutModule
+    AdminLayoutModule,
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

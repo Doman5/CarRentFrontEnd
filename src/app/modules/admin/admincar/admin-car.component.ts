@@ -1,11 +1,7 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTable} from "@angular/material/table";
-<<<<<<< HEAD
 import {AdminCarBasicInfo} from "./model/admin-basic-info";
-=======
-import {AdminBasicInfo} from "./model/admin-basic-info";
->>>>>>> d3405cd59b7dbe8099f80bfc3b4fac2588cc0c4c
 import {AdminCarService} from "./admin-car.service";
 import {map, startWith, switchMap} from "rxjs";
 

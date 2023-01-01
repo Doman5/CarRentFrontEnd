@@ -47,7 +47,7 @@
           </div>
         </div>
       </mat-form-field>
-      <button mat-stroked-button color="warn" (click)="submitCarBasicInfo()"> Edytuj Podstawowe informacje</button>
+      <button mat-stroked-button color="accent" (click)="submitCarBasicInfo()"> Edytuj Podstawowe informacje</button>
   </form>
 
   <!--specyfikacja techniczna -->
@@ -88,7 +88,7 @@
           <input matInput placeholder="Podaj ilość miejsc w aucie" formControlName="seats">
         </mat-form-field>
 
-        <button mat-stroked-button color="warn" (click)="submitCarTechSpec()"> Edytuj specyfikacje techniczną</button>
+        <button mat-stroked-button color="accent" (click)="submitCarTechSpec()"> Edytuj specyfikacje techniczną</button>
   </form>
   <!-- // wyposażenie -->
   <form fxLayout="column" [formGroup]="carEquipmentForm">
@@ -98,7 +98,7 @@
   <!--        <input matInput [formControlName]="i">-->
   <!--      </div>-->
   <!--    </div>-->
-      <button mat-stroked-button color="warn" (click)="submitCarEquipment()"> Edytuj Wyposażenie</button>
+      <button mat-stroked-button color="accent" (click)="submitCarEquipment()"> Edytuj Wyposażenie</button>
   </form>
 
   <!-- // opis -->
@@ -109,7 +109,7 @@
   <!--        <input type="text" [formControlName]="i">-->
   <!--      </div>-->
   <!--    </div>-->
-      <button mat-stroked-button color="warn" (click)="submitCarDescription()"> Edytuj Opisy</button>
+      <button mat-stroked-button color="accent" (click)="submitCarDescription()"> Edytuj Opisy</button>
   </form>
 
   <!-- // cena -->
@@ -172,6 +172,6 @@
             </mat-option>
           </mat-select>
       </mat-form-field>
-      <button mat-stroked-button color="warn" (click)="submitCategory()"> Edytuj kategorie</button>
+      <button mat-stroked-button color="accent" (click)="submitCategory()"> Edytuj kategorie</button>
   </form>
 </div>

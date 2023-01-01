@@ -1,5 +1,5 @@
 <h1> Dodawanie Auta</h1>
-<form fxLayout="column" [formGroup]="carForm" (submit)="submit()">
+<form fxLayout="column" [formGroup]="carForm">
   <div [formGroup]="carForm" fxLayout="column">
     <mat-form-field appearance="fill">
       <mat-label>Marka</mat-label>
@@ -85,18 +85,38 @@
       </mat-form-field>
     </div>
     // wyposażenie
-<!--    <div formArrayName="equipments">-->
-<!--      <div *ngFor="let equipment of carForm.get('equipments').controls; index as i">-->
-<!--        <input matInput [formControlName]="i">-->
-<!--      </div>-->
-<!--    </div>-->
+
+    <div formArrayName="equipments">
+      <div *ngFor="let item of equipments.controls; index as i" class="equipment-area">
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <input class="equipment-input" matInput placeholder="Podaj nazwę wyposażenia" [formControlName]="i">
+          <button mat-stroked-button color="accent" (click)="deleteEquipment(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <button mat-stroked-button color="accent" (click)="addEquipment()">
+      <mat-icon>add</mat-icon>
+    </button>
+
+
     // opis
     <h2> Opis </h2>
-<!--    <div formArrayName="descriptions">-->
-<!--      <div *ngFor="let description of carForm.get('descriptions').controls; index as i">-->
-<!--        <input type="text" [formControlName]="i">-->
-<!--      </div>-->
-<!--    </div>-->
+    <div formArrayName="descriptions">
+      <div *ngFor="let item of descriptions.controls; index as i" class="description-area">
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <textarea class="description-input" placeholder="Podaj opis..." [formControlName]="i"></textarea>
+          <button mat-stroked-button color="accent" (click)="deleteDescription(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <button mat-stroked-button color="accent" (click)="addDescription()">
+      <mat-icon>add</mat-icon>
+    </button>
+
     // cena
     <div formGroupName="carPrice" fxLayout="column">
       <h2> Ceny </h2>
@@ -158,7 +178,7 @@
     </div>
 
     <div fxLayoutAlign="end">
-      <button mat-flat-button color="primary" [disabled]="!carForm.valid"> Zapisz </button>
+      <button mat-flat-button color="primary" [disabled]="!carForm.valid" (click)="submit()"> Zapisz </button>
     </div>
   </div>
 </form>

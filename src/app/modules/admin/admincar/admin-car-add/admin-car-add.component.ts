@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AdminCarImageService} from "../admin-car-image.service";
@@ -44,35 +44,29 @@ export class AdminCarAddComponent implements OnInit {
       year: ['', [Validators.required, Validators.min(1)]],
       bodyType: ['', Validators.required],
       carTechnicalSpecification: this.formBuilder.group({
-        power: [''],
-        engine: [''],
-        drive: [''],
-        acceleration: [''],
-        gearbox: [''],
-        fuel: [''],
-        seats: ['']
+        power: ['', Validators.required],
+        engine: ['', Validators.required],
+        drive: ['', Validators.required],
+        acceleration: ['', Validators.required],
+        gearbox: ['', Validators.required],
+        fuel: ['', Validators.required],
+        seats: ['', Validators.required]
       }),
-      // equipments: this.formBuilder.array([
-      //   this.formBuilder.control('equipment1'),
-      //   this.formBuilder.control('equipment2')
-      // ]),
-      // descriptions: this.formBuilder.array([
-      //   this.formBuilder.control('description1'),
-      //   this.formBuilder.control('description2')
-      // ]),
+      equipments: this.formBuilder.array([]),
+      descriptions: this.formBuilder.array([]),
       carPrice: this.formBuilder.group({
-        priceDay: [''],
-        priceHalfWeek: [''],
-        priceWeek: [''],
-        priceTwoWeeks: [''],
-        priceMonth: [''],
-        deposit: [''],
-        distanceLimit: [''],
-        distanceLimitPenalty: [''],
-        transportPricePerKm: ['']
+        priceDay: ['', [Validators.required, Validators.min(1)]],
+        priceHalfWeek: ['', [Validators.required, Validators.min(1)]],
+        priceWeek: ['', [Validators.required, Validators.min(1)]],
+        priceTwoWeeks: ['', [Validators.required, Validators.min(1)]],
+        priceMonth: ['', [Validators.required, Validators.min(1)]],
+        deposit: ['', [Validators.required, Validators.min(1)]],
+        distanceLimit: ['', [Validators.required, Validators.min(1)]],
+        distanceLimitPenalty: ['', [Validators.required, Validators.min(1)]],
+        transportPricePerKm: ['', [Validators.required, Validators.min(1)]]
       }),
       category: this.formBuilder.group({
-        name: ['']
+        name: ['', Validators.required]
       })
     });
     this.imageForm = this.formBuilder.group({
@@ -116,6 +110,31 @@ export class AdminCarAddComponent implements OnInit {
     this.formTypeService.getTypes()
       .subscribe(types => this.types = types)
   }
+
+  get equipments() {
+    return this.carForm.get('equipments') as FormArray;
+  }
+  
+  addEquipment() {
+    this.equipments.push(this.formBuilder.control(''));
+  }
+  
+  deleteEquipment(index: number) {
+    this.equipments.removeAt(index);
+  }
+
+  get descriptions() {
+    return this.carForm.get('descriptions') as FormArray;
+  }
+  
+  addDescription() {
+    this.descriptions.push(this.formBuilder.control(''));
+  }
+  
+  deleteDescription(index: number) {
+    this.descriptions.removeAt(index);
+  }
+
 
   get brand() {
     return this.carForm.get("brand")

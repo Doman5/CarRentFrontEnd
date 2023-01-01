@@ -1,0 +1,17 @@
+.equipment-input {
+    width: 800px;
+    height: 30px;
+}
+
+.description-input {
+    width: 800px;
+    height: 60px;
+}
+
+.description-area {
+    padding-top: 10px;
+}
+
+.equipment-area {
+    padding-top: 10px;
+}

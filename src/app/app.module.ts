@@ -9,6 +9,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {HttpClientModule} from "@angular/common/http";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { AdminCarUpdateComponent } from './modules/admin/admincar/admin-car-update/admin-car-update.component';
+import { AdminConfirmDialogComponent } from './modules/common/component/admin-confirm-dialog/admin-confirm-dialog.component';
 
 @NgModule({
   declarations: [

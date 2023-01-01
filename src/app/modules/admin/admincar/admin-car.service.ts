@@ -8,10 +8,14 @@ import {Page} from "../../common/model/page";
   providedIn: 'root'
 })
 export class AdminCarService {
-
+  
   constructor(private http: HttpClient) { }
-
+  
   getCars(page: number, size: number): Observable<Page<AdminCarBasicInfo>> {
     return this.http.get<Page<AdminCarBasicInfo>>(`/api/admin/cars`);
+  }
+
+  delete(id: number):Observable<void> {
+    return this.http.delete<void>("/api/admin/cars/" + id)
   }
 }

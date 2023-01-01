@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormCategoryService } from '../admin-car-form/form-category.service';
 import { FormTypeService } from '../admin-car-form/form-type.service';
 import { AdminCarBasicInfo } from '../model/admin-basic-info';
+import { AdminCarPriceDto } from '../model/admin-car-price-dto';
 import { AdminCarTechnicalSpecificationDto } from '../model/admin-car-technical-specification-dto';
 import { AdminCategoryDto } from '../model/admin-category-dto';
 import { AdminCarUpdateService } from './admin-car-update.service';
@@ -63,6 +64,7 @@ export class AdminCarUpdateComponent implements OnInit{
 
         });
 
+        this.getCarPrice();
         this.carPriceForm = this.formBuilder.group({
           priceDay: [''],
           priceHalfWeek: [''],
@@ -75,6 +77,7 @@ export class AdminCarUpdateComponent implements OnInit{
           transportPricePerKm: ['']
         });
           
+        this.getCategory();
         this.categoryForm = this.formBuilder.group({
           name: ['']
         });
@@ -117,8 +120,8 @@ export class AdminCarUpdateComponent implements OnInit{
   }
 
   mapCarTechSpecFormValue(techSpec: AdminCarTechnicalSpecificationDto): void {
-    this.technicalSpecificationForm.setValue({
-      power: techSpec.power,
+    this.technicalSpecificationForm.patchValue({
+          power: techSpec.power,
           engine: techSpec.engine,
           drive: techSpec.drive,
           acceleration: techSpec.acceleration,
@@ -156,12 +159,68 @@ export class AdminCarUpdateComponent implements OnInit{
 
   }
 
-  submitCarPrice() {
+  getCarPrice() {
+    let id = Number(this.router.snapshot.params['id'])
+    this.adminCarUpdateService.getCarPrices(id)
+      .subscribe(car => this.mapCarPriceFormValue(car))
+  }
 
+  mapCarPriceFormValue(car: AdminCarPriceDto): void {
+    this.carPriceForm.setValue({
+          priceDay: car.priceDay,
+          priceHalfWeek: car.priceHalfWeek,
+          priceWeek: car.priceWeek,
+          priceTwoWeeks: car.priceTwoWeeks,
+          priceMonth: car.priceMonth,
+          deposit: car.deposit,
+          distanceLimit : car.distanceLimit,
+          distanceLimitPenalty: car.distanceLimitPenalty,
+          transportPricePerKm: car.transportPricePerKm
+    })
+  }
+
+  submitCarPrice() {
+    let id = Number(this.router.snapshot.params['id']);
+    this.adminCarUpdateService.updateCarPrice(id, {
+          priceDay: this.carPriceForm.get('priceDay')?.value,
+          priceHalfWeek: this.carPriceForm.get('priceDay')?.value,
+          priceWeek: this.carPriceForm.get('priceDay')?.value,
+          priceTwoWeeks: this.carPriceForm.get('priceDay')?.value,
+          priceMonth: this.carPriceForm.get('priceDay')?.value,
+          deposit: this.carPriceForm.get('priceDay')?.value,
+          distanceLimit : this.carPriceForm.get('priceDay')?.value,
+          distanceLimitPenalty: this.carPriceForm.get('priceDay')?.value,
+          transportPricePerKm: this.carPriceForm.get('priceDay')?.value,
+    } as AdminCarPriceDto).subscribe({
+      next: carPrice => {
+        this.mapCarPriceFormValue(carPrice);
+        this.snacbar.open("Zaktualizowane specyfikacje techniczną!", "", {duration:3000});
+      }
+    })
+  }
+
+  getCategory() {
+    let id = Number(this.router.snapshot.params['id']);
+    this.adminCarUpdateService.getCategory(id)
+      .subscribe(category => this.mapCarCategoryFormValue(category))
+  }
+
+  mapCarCategoryFormValue(category: AdminCategoryDto): void {
+    this.categoryForm.setValue({
+      name: category.name
+    })
   }
 
   submitCategory() {
-
+    let id = Number(this.router.snapshot.params['id']);
+    this.adminCarUpdateService.updateCarCategory(id, {
+      name: this.categoryForm.get('name')?.value
+    } as AdminCategoryDto).subscribe({
+      next: category => {
+        this.mapCarCategoryFormValue(category);
+        this.snacbar.open("Zaktualizowano kategorie!", "", {duration:3000});
+      }
+    })
   }
 
   getCategories() {
@@ -191,4 +250,6 @@ export class AdminCarUpdateComponent implements OnInit{
   }
 }
 
+
+ 
 

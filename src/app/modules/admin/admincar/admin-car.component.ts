@@ -4,6 +4,7 @@ import {MatTable} from "@angular/material/table";
 import {AdminCarBasicInfo} from "./model/admin-basic-info";
 import {AdminCarService} from "./admin-car.service";
 import {map, startWith, switchMap} from "rxjs";
+import { AdminConfirmDialogService } from '../../common/service/admin-confirm-dialog.service';
 
 @Component({
   selector: 'app-admin-car',
@@ -18,7 +19,10 @@ export class AdminCarComponent implements AfterViewInit {
   data: AdminCarBasicInfo[] = []
   totalElements: number = 0;
 
-  constructor(private adminCarService: AdminCarService) {}
+  constructor(
+    private adminCarService: AdminCarService,
+    private adminConfirmDialogService: AdminConfirmDialogService
+    ) {}
 
   ngAfterViewInit(): void {
     this.paginator.page.pipe(
@@ -35,7 +39,21 @@ export class AdminCarComponent implements AfterViewInit {
 
 
   confirmDelete(car: AdminCarBasicInfo) {
-
+    this.adminConfirmDialogService.openConfirmDialog("Czy chcesz usunąć ten produkt?")
+    .afterClosed()
+    .subscribe(result => {
+      if(result) {
+        this.adminCarService.delete(car.id)
+        .subscribe(() => {
+          this.data.forEach((value, index) => {
+            if(car == value) {
+              this.data.splice(index, 1);
+              this.table.renderRows();
+            }
+          })
+        })
+      }
+    })
   }
 
 }

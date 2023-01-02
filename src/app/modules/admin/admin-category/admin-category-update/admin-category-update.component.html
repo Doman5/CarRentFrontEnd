@@ -1,1 +1,9 @@
-<p>admin-category-update works!</p>
+<h1> Edytuj kategorie </h1>
+
+<form [formGroup]="categoryForm" (submit)="submit()" fxLayout="column">      
+    <mat-form-field>
+      <mat-label>Nazwa kategorii</mat-label>
+      <input matInput placeholder="Wpisz nazwę kategorii" formControlName="name">
+    </mat-form-field>  
+    <button mat-stroked-button [disabled]="!categoryForm.valid"> Edytuj kategorie</button>
+</form>

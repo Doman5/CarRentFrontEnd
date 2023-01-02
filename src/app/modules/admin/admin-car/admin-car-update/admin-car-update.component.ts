@@ -183,14 +183,14 @@ export class AdminCarUpdateComponent implements OnInit{
     let id = Number(this.router.snapshot.params['id']);
     this.adminCarUpdateService.updateCarPrice(id, {
           priceDay: this.carPriceForm.get('priceDay')?.value,
-          priceHalfWeek: this.carPriceForm.get('priceDay')?.value,
-          priceWeek: this.carPriceForm.get('priceDay')?.value,
-          priceTwoWeeks: this.carPriceForm.get('priceDay')?.value,
-          priceMonth: this.carPriceForm.get('priceDay')?.value,
-          deposit: this.carPriceForm.get('priceDay')?.value,
-          distanceLimit : this.carPriceForm.get('priceDay')?.value,
-          distanceLimitPenalty: this.carPriceForm.get('priceDay')?.value,
-          transportPricePerKm: this.carPriceForm.get('priceDay')?.value,
+          priceHalfWeek: this.carPriceForm.get('priceHalfWeek')?.value,
+          priceWeek: this.carPriceForm.get('priceWeek')?.value,
+          priceTwoWeeks: this.carPriceForm.get('priceTwoWeeks')?.value,
+          priceMonth: this.carPriceForm.get('priceMonth')?.value,
+          deposit: this.carPriceForm.get('deposit')?.value,
+          distanceLimit : this.carPriceForm.get('distanceLimit')?.value,
+          distanceLimitPenalty: this.carPriceForm.get('distanceLimitPenalty')?.value,
+          transportPricePerKm: this.carPriceForm.get('transportPricePerKm')?.value,
     } as AdminCarPriceDto).subscribe({
       next: carPrice => {
         this.mapCarPriceFormValue(carPrice);

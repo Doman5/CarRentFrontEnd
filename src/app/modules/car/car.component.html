@@ -1,1 +1,87 @@
-<p>car works!</p>
+<div class="main" fxLayout="column">
+  <div class="task-bar">
+    <div class="content">
+      <button mat-button color="accent" [matMenuTriggerFor]="menu">Filtry</button>
+          <!-- <mat-menu #menu="matMenu">
+            <div class="filters-menu">
+              <div class="brands-filters">
+                <h2 class="filter-name"> Marki </h2>
+                <span fxLayout="column" *ngFor="let brand of brands | keyvalue">
+                  {{brand.key}} ({{brand.value}})
+                </span>
+                <h2 class="filter-name"> Rocznik </h2>
+                <span fxLayout="column" *ngFor="let year of years | keyvalue">
+                  {{year.key}} ({{year.value}})
+                </span>  
+                <h2 class="filter-name"> Typ nadwozia </h2>
+                <span fxLayout="column" *ngFor="let type of bodyTypes | keyvalue">
+                  {{type.key}} ({{type.value}})
+                </span>  
+              </div>
+            </div>
+          </mat-menu> -->
+    <!-- wersja form -->
+          <mat-menu #menu="matMenu" overlapTrigger="true">
+            <form [formGroup]="filterForm" class="filters-menu">
+              <h2 class="filter-name"> Marki </h2>
+              <section class="example-section" *ngFor="let brand of brands | keyvalue ; let i=index">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="changeBrand($event, brand.key)">
+                  {{brand.key}} ({{brand.value}})
+                </mat-checkbox>
+              </section>
+                
+              <h2 class="filter-name"> Rocznik </h2>
+              <section class="example-section" *ngFor="let year of years | keyvalue">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="chngeYear($event, year.key.toString())">
+                  {{year.key}} ({{year.value}})
+                </mat-checkbox>
+              </section>
+                
+              <h2 class="filter-name"> Typ nadwozia </h2>
+              <section class="example-section" *ngFor="let type of bodyTypes | keyvalue">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="changeBodyType($event, type.key)">
+                  {{type.key}} ({{type.value}})
+                </mat-checkbox>
+              </section>
+              <button mat-stroked-button (click)="submit()"> Filtruj </button>
+            </form>
+          </mat-menu>
+      samochody - sortowanie
+  </div>
+  <div class="cars-list" fxLayout="row wrap" fxLayoutGap="50px" fxFlexAling="center center">
+    <mat-card *ngFor="let car of cars" class="car-card">
+        <a routerLink="{{'/cars/' + car.slug}}">
+          <img *ngIf="!car.photo" src="/assets/image-placeholder.png" width="700" mat-card-xl-image>
+          <img *ngIf="car.photo" src="{{'/api/data/carPhotos/' + car.photo}}" width="500" mat-card-xl-image>
+        </a>
+        <mat-card-header fxLayoutAlign="center center">
+          <mat-card-title>{{car.brand}} {{car.model}}</mat-card-title>
+          <mat-card-subtitle>{{car.year}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div>
+            <div class="car-price">
+              <h2> od <b> {{car.priceMonth}} </b> zł </h2>
+              <p class="price-information"> cena netto/doba przy wynajmie na min 30 dni </p>
+            </div>
+            <div class="car-specification" fxLayoutAlign="center center">
+              <table class="spec-table">
+                <tr>
+                  <td><mat-icon>alarm</mat-icon> {{car.acceleration}}s do 100km/h</td>
+                  <td><mat-icon>sync</mat-icon> {{car.gearbox}}</td>
+                </tr>
+                <tr>
+                  <td><mat-icon> directions_car</mat-icon>{{car.power}} KM</td>
+                  <td><mat-icon>event_seat</mat-icon>{{car.seats}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button color="accent" fxFlex="50" routerLink="/{{car.slug}}">Zobacz</button>
+          <button mat-button color="accent" fxFlex="50" routerLink="/wynajmij-auto">Wynajmij</button>
+        </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

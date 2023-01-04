@@ -1,0 +1,67 @@
+.car-card {
+    margin-top: 25px;
+    text-align: center;
+    background-color: white;
+}
+
+.spec-table > td {
+    text-align: left;
+    width: 100px;
+}
+
+mat-card-title {
+    text-align: center;
+}
+
+mat-card-subtitle {
+    text-align: center;
+    color: black;    
+}
+
+table {
+    text-align: left;
+}
+
+.price-information {
+    font-size: 0.7rem;
+    margin-top: -20px;
+}
+
+header {
+    background-color: black;
+    padding: 10px 50px;
+  }
+  
+  .logo {
+    color: white;
+  }
+  
+  footer {
+    background-color: #2f2f2f;
+    padding: 10px 50px;
+    color: white;
+  }
+  
+  .main {
+    background-color: #9a9a9a;
+  }
+  
+  .task-bar {
+    background-color: white;
+  }
+
+  .cars-list {
+    background-color: #9a9a9a;
+  }
+  
+  .filters-menu {
+    width: 400px;
+    padding-left: 20px;
+  }
+
+  .filter-name {
+    margin-top: 8px;
+    margin-bottom: -5px;
+  }
+
+  

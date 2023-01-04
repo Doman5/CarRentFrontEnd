@@ -5,18 +5,22 @@ import {CarComponent} from "../../modules/car/car.component";
 import {RouterModule} from "@angular/router";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {MaterialModule} from "../../shared/material.module";
+import { CarDetailComponent } from 'src/app/modules/car/car-detail/car-detail.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     DefaultComponent,
-    CarComponent
+    CarComponent,
+    CarDetailComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     FlexLayoutModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ]
 })
 export class DefaultModule { }

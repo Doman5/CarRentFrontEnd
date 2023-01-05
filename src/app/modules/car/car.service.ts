@@ -26,8 +26,4 @@ export class CarService {
   getSortType(): Observable<Array<string>> {
     return this.http.get<Array<string>>("/api/cars/sort");
   }
-
-  sortCars(preparedUrl: string, type: string) {
-    return this.http.get<Array<CarBasicInfo>>("/api/cars?" + preparedUrl + "&sort=" + type)
-  }
 }

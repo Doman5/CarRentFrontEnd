@@ -27,6 +27,7 @@ export class CarComponent implements OnInit {
   bodyTypes: Map<string, number> = new Map;
   sortTypes: Array<string> = [];
   sortingForm!: FormGroup;
+  chosenSortType: string = 'Malejaco';
   
 
   ngOnInit(): void {
@@ -58,16 +59,14 @@ export class CarComponent implements OnInit {
   
   submit() {
     let cleanArray = this.filterParamsList.filter(value => Object.keys(value).length !== 0);
-    let preparedUrl = cleanArray.join("&");
+    let preparedUrl = cleanArray.join("&") + `&sort=${this.chosenSortType}`;
     this.carService.getCarsWithFilters(preparedUrl)
     .subscribe(cars => this.cars = cars)
   }
 
   sortCars(event: any) {
-    let cleanArray = this.filterParamsList.filter(value => Object.keys(value).length !== 0);
-    let preparedUrl = cleanArray.join("&");
-    this.carService.sortCars(preparedUrl, event.value)
-      .subscribe(cars => this.cars = cars)
+    this.chosenSortType = event.value;
+    this.submit();
   }
   
   changeBrand(event: any, carname: String) {

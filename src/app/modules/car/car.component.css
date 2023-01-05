@@ -1,5 +1,12 @@
 .content {
   text-align: center;
+  background-color: #2f2f2f;
+  padding-top: 20px;
+}
+
+h1 {
+  
+  color:rgb(0, 255, 153);
 }
 
 .car-card {
@@ -56,6 +63,7 @@ header {
 
   .cars-list {
     background-color: #9a9a9a;
+    padding-left: 80px;
   }
   
   .filters-menu {

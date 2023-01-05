@@ -3,7 +3,7 @@
     <div class="content" fxLayout="row" >
       <div class="filters" fxFlex="20">
         <button mat-button color="accent" [matMenuTriggerFor]="menu">Filtry</button>
-        <mat-menu #menu="matMenu" overlapTrigger="true">
+        <mat-menu #menu="matMenu" overlapTrigger="true" xPosition="before">
           <form class="filters-menu" [formGroup]="filterForm">
             <h2 class="filter-name"> Marki </h2>
             <section class="example-section" *ngFor="let brand of brands | keyvalue ; let i=index">
@@ -30,7 +30,7 @@
         </mat-menu>
       </div>
       <div class="car-count" fxFlex="60">
-        Samochody ({{cars.length}})
+        <h1> Samochody ({{cars.length}}) </h1>
       </div>
       <div class="car-sorting" fxFlex="20">
         <form [formGroup]="sortingForm">

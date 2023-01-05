@@ -14,12 +14,20 @@ export class CarService {
   getCars():Observable<Array<CarBasicInfo>> {
     return this.http.get<Array<CarBasicInfo>>("/api/cars");
   }
-
+  
   getCarsWithFilters(filtersUrl: string): Observable<Array<CarBasicInfo>> {
     return this.http.get<Array<CarBasicInfo>>("/api/cars?" + filtersUrl)
   }
   
   getFilters(): Observable<FiltrationDto> {
     return this.http.get<FiltrationDto>("/api/cars/filters")
+  }
+  
+  getSortType(): Observable<Array<string>> {
+    return this.http.get<Array<string>>("/api/cars/sort");
+  }
+
+  sortCars(preparedUrl: string, type: string) {
+    return this.http.get<Array<CarBasicInfo>>("/api/cars?" + preparedUrl + "&sort=" + type)
   }
 }

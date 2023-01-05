@@ -1,52 +1,48 @@
 <div class="main" fxLayout="column">
   <div class="task-bar">
-    <div class="content">
-      <button mat-button color="accent" [matMenuTriggerFor]="menu">Filtry</button>
-          <!-- <mat-menu #menu="matMenu">
-            <div class="filters-menu">
-              <div class="brands-filters">
-                <h2 class="filter-name"> Marki </h2>
-                <span fxLayout="column" *ngFor="let brand of brands | keyvalue">
-                  {{brand.key}} ({{brand.value}})
-                </span>
-                <h2 class="filter-name"> Rocznik </h2>
-                <span fxLayout="column" *ngFor="let year of years | keyvalue">
-                  {{year.key}} ({{year.value}})
-                </span>  
-                <h2 class="filter-name"> Typ nadwozia </h2>
-                <span fxLayout="column" *ngFor="let type of bodyTypes | keyvalue">
-                  {{type.key}} ({{type.value}})
-                </span>  
-              </div>
-            </div>
-          </mat-menu> -->
-    <!-- wersja form -->
-          <mat-menu #menu="matMenu" overlapTrigger="true">
-            <form [formGroup]="filterForm" class="filters-menu">
-              <h2 class="filter-name"> Marki </h2>
-              <section class="example-section" *ngFor="let brand of brands | keyvalue ; let i=index">
-                <mat-checkbox (click)="$event.stopPropagation()" (change)="changeBrand($event, brand.key)">
-                  {{brand.key}} ({{brand.value}})
-                </mat-checkbox>
-              </section>
-                
-              <h2 class="filter-name"> Rocznik </h2>
-              <section class="example-section" *ngFor="let year of years | keyvalue">
-                <mat-checkbox (click)="$event.stopPropagation()" (change)="chngeYear($event, year.key.toString())">
-                  {{year.key}} ({{year.value}})
-                </mat-checkbox>
-              </section>
-                
-              <h2 class="filter-name"> Typ nadwozia </h2>
-              <section class="example-section" *ngFor="let type of bodyTypes | keyvalue">
-                <mat-checkbox (click)="$event.stopPropagation()" (change)="changeBodyType($event, type.key)">
-                  {{type.key}} ({{type.value}})
-                </mat-checkbox>
-              </section>
-              <button mat-stroked-button (click)="submit()"> Filtruj </button>
-            </form>
-          </mat-menu>
-      samochody - sortowanie
+    <div class="content" fxLayout="row" >
+      <div class="filters" fxFlex="20">
+        <button mat-button color="accent" [matMenuTriggerFor]="menu">Filtry</button>
+        <mat-menu #menu="matMenu" overlapTrigger="true">
+          <form class="filters-menu" [formGroup]="filterForm">
+            <h2 class="filter-name"> Marki </h2>
+            <section class="example-section" *ngFor="let brand of brands | keyvalue ; let i=index">
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="changeBrand($event, brand.key)">
+                {{brand.key}} ({{brand.value}})
+              </mat-checkbox>
+            </section>
+              
+            <h2 class="filter-name"> Rocznik </h2>
+            <section class="example-section" *ngFor="let year of years | keyvalue">
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="chngeYear($event, year.key.toString())">
+                {{year.key}} ({{year.value}})
+              </mat-checkbox>
+            </section>
+              
+            <h2 class="filter-name"> Typ nadwozia </h2>
+            <section class="example-section" *ngFor="let type of bodyTypes | keyvalue">
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="changeBodyType($event, type.key)">
+                {{type.key}} ({{type.value}})
+              </mat-checkbox>
+            </section>
+            <button mat-stroked-button (click)="submit()"> Filtruj </button>
+          </form>
+        </mat-menu>
+      </div>
+      <div class="car-count" fxFlex="60">
+        Samochody ({{cars.length}})
+      </div>
+      <div class="car-sorting" fxFlex="20">
+        <form [formGroup]="sortingForm">
+          <mat-form-field appearance="fill">
+            <mat-label>Sortowanie</mat-label>
+            <mat-select (selectionChange)="sortCars($event)">
+              <mat-option *ngFor="let type of sortTypes" value="{{type}}" >{{type}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+      </form>
+      </div>
+      
   </div>
   <div class="cars-list" fxLayout="row wrap" fxLayoutGap="50px" fxFlexAling="center center">
     <mat-card *ngFor="let car of cars" class="car-card">

@@ -8,10 +8,12 @@ import {AdminLayoutModule} from "./layouts/admin/admin-layout.module";
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {HttpClientModule} from "@angular/common/http";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { RentComponent } from './modules/rent/rent.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RentComponent
   ],
   imports: [
     BrowserModule,

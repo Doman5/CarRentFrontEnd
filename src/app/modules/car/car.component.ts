@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CarService } from './car.service';
-import { CarBasicInfo } from './model/car';
+import { CarBasicInfo } from './model/carBasicInfo';
 import { KeyValuePipe } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';

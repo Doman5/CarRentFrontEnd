@@ -1,3 +1,4 @@
+
 .content {
   text-align: center;
   background-color: #2f2f2f;
@@ -10,6 +11,7 @@ h1 {
 }
 
 .car-card {
+  width: 300px;
     margin-top: 25px;
     text-align: center;
     background-color: white;
@@ -56,14 +58,12 @@ header {
   .main {
     background-color: #9a9a9a;
   }
-  
-  .task-bar {
-    background-color: white;
-  }
 
   .cars-list {
     background-color: #9a9a9a;
     padding-left: 80px;
+    width: 1200px;
+    margin: auto;
   }
   
   .filters-menu {

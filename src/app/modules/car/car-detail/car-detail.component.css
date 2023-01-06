@@ -1,0 +1,21 @@
+.rent-card {
+    margin-left: 1000px;
+    position: fixed;
+}
+
+.car-table {
+    width: 800px;
+}
+
+.car-table tr:nth-child(odd){
+    background-color: rgb(133, 132, 132);
+  }
+
+.car-table thead tr {
+    background-color: rgb(156, 255, 74);
+}
+
+.fast-menu button a {
+    text-decoration: none;
+    color: black;
+}

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CarBasicInfo } from './model/car';
+import { CarBasicInfo } from './model/carBasicInfo';
 import { FiltrationDto } from './model/filtrationDto';
 
 @Injectable({

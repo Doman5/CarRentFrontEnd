@@ -1,1 +1,138 @@
-<p>car-detail works!</p>
+<div class="main" fxLayout="row">
+    <div class="car-info" fxFlex="70" fxLayout="column" fxLayoutGap="40px">
+        <div class="technical-specification">
+            <h1> Wynajmij {{car.brand}} {{car.model}} {{car.year}} </h1>
+        </div>
+        <div class="fast-menu">
+            <button mat-stroked-button><a href="{{slug}}#tech"> Opis </a></button>
+            <button mat-stroked-button><a href="{{slug}}#description"> Opis </a></button>
+            <button mat-stroked-button><a href="{{slug}}#equipment"> Wyposażenie </a></button>
+            <button mat-stroked-button><a href="{{slug}}#photo"> Zdjęcia </a></button>
+            <button mat-stroked-button><a href="{{slug}}#price"> Cennik </a></button>
+        </div>
+        <div class="tech" id="tech">
+            <h2>Specyfikacja</h2>
+            <table class="car-table">
+                <tr>
+                    <td>
+                        Moc
+                    </td>
+                    <td>
+                        {{car.carTechnicalSpecification.power}} KM
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        0 - 100 km/h
+                    </td>
+                    <td>
+                        {{car.carTechnicalSpecification.acceleration}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Skrzynia 
+                    </td>
+                    <td>
+                        {{car.carTechnicalSpecification.gearbox}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Napęd
+                    </td>
+                    <td>
+                        {{car.carTechnicalSpecification.drive}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Silnik
+                    </td>
+                    <td>
+                        {{car.carTechnicalSpecification.engine}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="descriptions" id="description">
+            <p *ngFor="let description of car.descriptions">
+                {{description.description}}
+            </p>
+        </div>
+        <div class="equipment" id="equipment">
+            <h2>Wyposażenie</h2>
+            <ul>
+                <li *ngFor="let equipment of car.equipments">
+                    {{equipment.name}}
+                </li>
+            </ul>
+        </div>
+        <div class="photos" id="photo">
+            <h2>Zdjecia</h2>
+            <div *ngFor="let photo of car.photos">
+                <img src="{{photo.photo}}">
+            </div>
+        </div>
+        <div class="prices" id="price">
+            <h2>Cennik wynajmu</h2> 
+            <table class="car-table">
+                <thead>
+                    <tr>
+                        <td> Okres najmu</td>
+                        <td> Cenna</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> 1 - 2 dni</td>
+                        <td> {{car.carPrice.priceDay}} / dzień </td>
+                    </tr>
+                    <tr>
+                        <td> 3 - 6 dni</td>
+                        <td> {{car.carPrice.priceHalfWeek}} / dzień </td>
+                    </tr>
+                    <tr>
+                        <td> 7 - 13 dni</td>
+                        <td> {{car.carPrice.priceWeek}} / dzień </td>
+                    </tr>
+                    <tr>
+                        <td> 14 - 29 dni</td>
+                        <td> {{car.carPrice.priceTwoWeeks}} / dzień </td>
+                    </tr>
+                    <tr>
+                        <td> > 30 dni</td>
+                        <td> {{car.carPrice.priceMonth}} / dzień </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Podane ceny są cenami netto, do ceny należy doliczyć podatek VAT w wysokości 23%.</p> 
+                <p>W cenie zawiera się: </p>
+                
+                Dzienny limit kilometrów: {{car.carPrice.distanceLimit}}
+                Dodatkowy kilometr ponad limit to koszt {{car.carPrice.distanceLimit}} zł brutto.
+        </div>
+        <div class="similiar-cars">
+    
+        </div>
+    </div>
+    <div class="rent-card" fxFlex="30">
+        <mat-card class="car-card">
+              <img *ngIf="!car.photos.at(0)" src="/assets/image-placeholder.png" width="400">
+              <img *ngIf="car.photos.at(0)" src="{{'/api/data/carPhotos/' + car.photos.at(0)}}" width="400">
+            <mat-card-header fxLayoutAlign="center center">
+              <mat-card-title>{{car.brand}} {{car.model}}</mat-card-title>
+              <mat-card-subtitle>{{car.year}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="car-price">
+                  <h2> od <b> {{car.carPrice.priceMonth}} </b> zł </h2>
+                  <p class="price-information"> cena netto/doba przy wynajmie na min 30 dni </p>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button color="accent" fxFlex routerLink="/panel-wynajmu">Wynajmij</button>
+            </mat-card-actions>
+        </mat-card> 
+    </div>
+</div>

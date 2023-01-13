@@ -7,13 +7,15 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 import {MaterialModule} from "../../shared/material.module";
 import { CarDetailComponent } from 'src/app/modules/car/car-detail/car-detail.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RentComponent } from 'src/app/modules/rent/rent.component';
 
 
 @NgModule({
   declarations: [
     DefaultComponent,
     CarComponent,
-    CarDetailComponent
+    CarDetailComponent,
+    RentComponent
   ],
   imports: [
     CommonModule,

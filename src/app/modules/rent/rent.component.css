@@ -1,0 +1,54 @@
+.rent-cars-list {
+    width: 1000px;
+    margin: auto;
+}
+
+.car-main-card{
+    background-color: white;
+}
+
+.car-info {
+    padding-left: 20px;
+}
+
+.car-card {
+    margin-top: 20px;
+    height: 300px;
+}
+
+.car-limits, .right-part-car-card {
+    background-color: lightgray;
+}
+
+.car-limits {
+    border-top: solid 5px gray;
+    padding-left: 20px;
+}
+
+.right-part-car-card {
+    border-left: solid 5px gray;
+    padding: 10px;
+}
+
+.car-table {
+    width: 500px;
+}
+
+.car-table tr:nth-child(odd){
+    background-color: lightgray;
+  }
+
+.car-value {
+    color: green;
+    font-weight: 800;
+    margin-top: -10px;
+    margin-bottom: -10px;
+}
+
+.register {
+    padding: 15px;
+}
+
+.login {
+    padding: 15px;
+}

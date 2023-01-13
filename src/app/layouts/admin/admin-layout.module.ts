@@ -12,6 +12,7 @@ import { AdminConfirmDialogComponent } from 'src/app/modules/common/component/ad
 import { AdminCategoryAddComponent } from 'src/app/modules/admin/admin-category/admin-category-add/admin-category-add.component';
 import { AdminCategoryComponent } from 'src/app/modules/admin/admin-category/admin-category.component';
 import { AdminCategoryUpdateComponent } from 'src/app/modules/admin/admin-category/admin-category-update/admin-category-update.component';
+import { AdminLoginComponent } from 'src/app/modules/admin/admin-login/admin-login.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AdminCategoryUpdateComponent } from 'src/app/modules/admin/admin-catego
     AdminConfirmDialogComponent,
     AdminCategoryAddComponent,
     AdminCategoryComponent,
-    AdminCategoryUpdateComponent
+    AdminCategoryUpdateComponent,
+    AdminLoginComponent
   ],
   imports: [
     CommonModule,

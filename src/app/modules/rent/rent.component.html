@@ -1,1 +1,169 @@
-<p>rent works!</p>
+<div>
+    <mat-tab-group animationDuration="0ms" (selectedIndexChange)="choseMenuOption($event)">
+        <mat-tab label="Wybór auta" >
+            <div *ngIf="!chosenCar" class="choose-car">
+                <div class="date-location">
+                    <form class="date-place-form" fxLayout="column" [formGroup]="placeDateForm">
+                        <div fxLayout="row" fxLayoutGap="50px">
+                            <div>
+                                <label for="rentalDate">Data wynajmu</label>
+                                <input type="datetime-local" formControlName="rentalDate" id="rentalDate">
+                                <label for="rentalPlace">Miejsce wynajmu</label>
+                                <input formControlName="rentalPlace" id="rentalPlace">
+                            </div>
+                            <mat-icon>arrow_right_alt</mat-icon>
+                            <div>
+                                <label for="returnDate">Data oddania</label>
+                                <input type="datetime-local" formControlName="returnDate" id="returnDate">
+                                <label for="returnPlace">Miejsce oddania</label>
+                                <input formControlName="returnPlace" id="returnPlace">
+                            </div>
+                        </div>
+                        <input type="checkbox" formControlName="onlyAvailable">Tylko dostępne
+                        <button (click)="searchCar()"> Szukaj </button>
+                    </form>
+                </div>
+                <div class="rent-cars-list">
+                    <mat-card class="car-card" *ngFor="let car of cars" fxLayout="row" >
+                        <div class="left-part-car-card" fxLayout="column" fxFlex="80">
+                            <div class="car-main-card" fxlayout="row" fxFlex="85">
+                                <div class="car-image" fxFlex="30">
+                                    <img *ngIf="!car.photo" src="/assets/image-placeholder.png" width="700" mat-card-xl-image>
+                                    <img *ngIf="car.photo" src="{{'/api/data/carPhotos/' + car.photo}}" width="500" mat-card-xl-image>
+                                </div>
+                                <div class="car-info" fxLayout="column" fxFlex="70">
+                                    <div class="car-name">
+                                        <h2> {{car.brand}} {{car.model}} ({{car.year}}) </h2>
+                                    </div>
+                                    <div class="car-specification">
+                                        <table class="car-table">
+                                            <tr>
+                                                <td>
+                                                    Moc
+                                                </td>
+                                                <td>
+                                                    {{car.carTechnicalSpecification.power}} KM
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    0 - 100 km/h
+                                                </td>
+                                                <td>
+                                                    {{car.carTechnicalSpecification.acceleration}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Skrzynia 
+                                                </td>
+                                                <td>
+                                                    {{car.carTechnicalSpecification.gearbox}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Napęd
+                                                </td>
+                                                <td>
+                                                    {{car.carTechnicalSpecification.drive}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Silnik
+                                                </td>
+                                                <td>
+                                                    {{car.carTechnicalSpecification.engine}}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="car-limits" fxFlex="15">
+                                Limit kilometrów: {{car.distanceLimit}} / doba <br>
+                                Kara za dodatkowy kilometr {{car.distanceLimitPenalty}} zł
+                            </div>
+                        </div>
+                        <div class="right-part-car-card" fxFlex="20">
+                            <div class="car-price">
+                                <p *ngIf="car.days === 1"> Cena za {{car.days}} dzień</p>
+                                <p *ngIf="car.days > 1"> Cena za {{car.days}} dni</p>
+                                <h1 class="car-value">{{car.grossValue}}PLN</h1>
+                                <h3>netto</h3>
+                                <button mat-raised-button *ngIf="car.available" color="accent" (click)="goNext(car)"> Zarezewuj </button>
+                                <button mat-raised-button *ngIf="!car.available" disabled color="accent"> Zarezerowany </button>
+                            </div>
+                        </div>
+                      </mat-card>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Autoryzacja" *ngIf="!chosenCar" disabled></mat-tab>
+        <mat-tab label="Autoryzacja" *ngIf="chosenCar">
+            <div class="authorization" fxLayout="row">
+                <div class="login" fxFlex="50">
+                    <h1> Mam konto</h1>
+                    <form [formGroup]="loginForm" fxLayout="column">
+                        <mat-form-field>
+                            <mat-label>Email</mat-label>
+                            <input matInput formControlName="email">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Haslo</mat-label>
+                            <input matInput formControlName="password">
+                        </mat-form-field>
+                        <button mat-raised-button (click)="login()"> Zaloguj </button>
+                        <div *ngIf="loginError" class="error">Podaj poprawne dane logowania</div>
+                    </form>
+                </div>
+                <div class="register" fxFlex="50">
+                    <h1> Nie mam konta</h1>
+                    <form [formGroup]="registerForm" fxLayout="column">
+                        <mat-form-field>
+                            <mat-label>Imię</mat-label>
+                            <input matInput formControlName="firstName">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Nazwisko</mat-label>
+                            <input matInput formControlName="secondName">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Numer telefonu</mat-label>
+                            <input matInput formControlName="phone">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Email</mat-label>
+                            <input matInput formControlName="email">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Haslo</mat-label>
+                            <input matInput formControlName="password">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Powtórz haslo</mat-label>
+                            <input matInput formControlName="repeatPassword">
+                        </mat-form-field>
+                        <button mat-raised-button (click)="register()"> Zarejestruj </button>
+                        <div *ngIf="registerError" class="error">{{registerErrorMessage}}</div>
+                    </form>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Wybór płatności" *ngIf="!chosenCar || !userLogged" disabled></mat-tab>
+        <mat-tab label="Wybór płatności" *ngIf="chosenCar && userLogged">
+            Content 3
+        </mat-tab>
+        <mat-tab label="Podsumowanie" *ngIf="!chosenCar || !userLogged || !rentSummary" disabled></mat-tab>
+        <mat-tab label="Podsumowanie" *ngIf="chosenCar && userLogged && rentSummary">
+            Content 4
+        </mat-tab>
+      </mat-tab-group>
+</div>
+
+<div class="user-and-payment" *ngIf="chosenCar">
+
+</div>
+
+

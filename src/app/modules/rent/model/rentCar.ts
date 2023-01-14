@@ -11,6 +11,7 @@ export interface RentCar {
     distanceLimit: number,
     distanceLimitPenalty: number,
     grossValue: number,
+    finalPrice: number,
     rentalPrice: number,
     rentalDate: Date,
     rentalPlace: string,

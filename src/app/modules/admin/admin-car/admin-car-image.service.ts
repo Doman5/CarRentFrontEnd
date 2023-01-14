@@ -11,6 +11,6 @@ export class AdminCarImageService {
   constructor(private http: HttpClient) { }
 
   uploadImage(formData: FormData): Observable<UploadResponse> {
-    return this.http.post<UploadResponse>("/api/admin/products/upload-image", formData);
+    return this.http.post<UploadResponse>("/api/admin/cars/upload-photo", formData);
   }
 }

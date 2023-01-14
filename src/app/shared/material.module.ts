@@ -13,6 +13,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatRadioModule} from '@angular/material/radio';
 @NgModule({
   declarations: [],
   imports: [
@@ -29,7 +30,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatCardModule,
     MatCheckboxModule,
     MatDatepickerModule,
-    MatTabsModule
+    MatTabsModule,
+    MatRadioModule
   ],
   exports: [
     MatIconModule,
@@ -44,7 +46,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatCardModule,
     MatCheckboxModule,
     MatDatepickerModule,
-    MatTabsModule
+    MatTabsModule,
+    MatRadioModule
   ]
 })
 export class MaterialModule { }

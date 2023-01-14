@@ -11,7 +11,6 @@ export class AdminCarAddService {
   constructor(private http: HttpClient) { }
 
   saveNewCar(car: AdminCarDto): Observable<AdminCarDto> {
-    // @ts-ignore
     return this.http.post<AdminCarDto>("/api/admin/cars", car);
   }
 }

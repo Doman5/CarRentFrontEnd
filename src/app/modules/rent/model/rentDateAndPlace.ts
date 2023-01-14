@@ -1,6 +1,6 @@
 export interface RentDateAndPlace {
     rentalPlace: string,
     rentalDate: Date,
-    retrunPlace: string,
-    retrunDate: Date
+    returnPlace: string,
+    returnDate: Date
 }

@@ -12,6 +12,7 @@ import { AdminCarAddComponent } from './modules/admin/admin-car/admin-car-add/ad
 import { CarDetailComponent } from './modules/car/car-detail/car-detail.component';
 import { RentComponent } from './modules/rent/rent.component';
 import { AdminLoginComponent } from './modules/admin/admin-login/admin-login.component';
+import { AdminAuthorizationGuard } from './modules/common/guard/adminAuthorizationGuard';
 
 const routes: Routes = [
   {

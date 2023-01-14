@@ -1,8 +1,12 @@
-.rent-cars-list {
+.rent-cars-list , .date-location  {
     width: 1000px;
     margin: auto;
 }
 
+.date-place-form {
+    width: 800px;
+    margin: auto;
+}
 .car-main-card{
     background-color: white;
 }
@@ -51,4 +55,11 @@
 
 .login {
     padding: 15px;
+}
+
+.info-block {
+    background-color: white;
+    border: solid 5px gray;
+    border-radius: 20px;
+    padding: 10px;
 }

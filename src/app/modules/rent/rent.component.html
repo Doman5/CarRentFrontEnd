@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="!rentSummary">
     <mat-tab-group animationDuration="0ms" (selectedIndexChange)="choseMenuOption($event)">
         <mat-tab label="Wybór auta" >
             <div *ngIf="!chosenCar" class="choose-car">
@@ -7,19 +7,28 @@
                         <div fxLayout="row" fxLayoutGap="50px">
                             <div>
                                 <label for="rentalDate">Data wynajmu</label>
-                                <input type="datetime-local" formControlName="rentalDate" id="rentalDate">
+                                <input type="datetime-local" formControlName="rentalDate" id="rentalDate" value="{{today}}"><br>
                                 <label for="rentalPlace">Miejsce wynajmu</label>
                                 <input formControlName="rentalPlace" id="rentalPlace">
                             </div>
                             <mat-icon>arrow_right_alt</mat-icon>
                             <div>
                                 <label for="returnDate">Data oddania</label>
-                                <input type="datetime-local" formControlName="returnDate" id="returnDate">
+                                <input type="datetime-local" formControlName="returnDate" id="returnDate"><br>
                                 <label for="returnPlace">Miejsce oddania</label>
                                 <input formControlName="returnPlace" id="returnPlace">
                             </div>
                         </div>
-                        <input type="checkbox" formControlName="onlyAvailable">Tylko dostępne
+                        <div class="only-available-checbox" fxLayout="row">
+                            <label for="onlyAvailable"> Tylko dostępne</label>
+                            <input type="checkbox" formControlName="onlyAvailable" id="onlyAvailable">
+                        </div>
+                        <div class="sorting" fxLayout="row">
+                            <label for="sortingType"> Sortowanie:</label>
+                            <select formControlName="sortingType" id="sortingType">
+                                <option *ngFor="let type of initData?.sortingTypes" value="{{type}}">{{type}}</option>
+                            </select>
+                        </div>
                         <button (click)="searchCar()"> Szukaj </button>
                     </form>
                 </div>
@@ -101,18 +110,18 @@
             </div>
         </mat-tab>
         <mat-tab label="Autoryzacja" *ngIf="!chosenCar" disabled></mat-tab>
-        <mat-tab label="Autoryzacja" *ngIf="chosenCar">
+        <mat-tab label="Autoryzacja" *ngIf="chosenCar" (selectedIndexChange)="choseMenuOption($event)">
             <div class="authorization" fxLayout="row">
                 <div class="login" fxFlex="50">
                     <h1> Mam konto</h1>
                     <form [formGroup]="loginForm" fxLayout="column">
                         <mat-form-field>
                             <mat-label>Email</mat-label>
-                            <input matInput formControlName="email">
+                            <input matInput formControlName="username">
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Haslo</mat-label>
-                            <input matInput formControlName="password">
+                            <input type="password" matInput formControlName="password">
                         </mat-form-field>
                         <button mat-raised-button (click)="login()"> Zaloguj </button>
                         <div *ngIf="loginError" class="error">Podaj poprawne dane logowania</div>
@@ -135,15 +144,15 @@
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Email</mat-label>
-                            <input matInput formControlName="email">
+                            <input matInput formControlName="username">
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Haslo</mat-label>
-                            <input matInput formControlName="password">
+                            <input type="password" matInput formControlName="password">
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Powtórz haslo</mat-label>
-                            <input matInput formControlName="repeatPassword">
+                            <input type="password" matInput formControlName="repeatPassword">
                         </mat-form-field>
                         <button mat-raised-button (click)="register()"> Zarejestruj </button>
                         <div *ngIf="registerError" class="error">{{registerErrorMessage}}</div>
@@ -152,18 +161,104 @@
             </div>
         </mat-tab>
         <mat-tab label="Wybór płatności" *ngIf="!chosenCar || !userLogged" disabled></mat-tab>
-        <mat-tab label="Wybór płatności" *ngIf="chosenCar && userLogged">
-            Content 3
+        <mat-tab label="Wybór płatności" *ngIf="chosenCar && userLogged" (selectedIndexChange)="choseMenuOption($event)">
+            <h1> Wybierz forme płatności</h1>
+            <form [formGroup]="paymantForm">
+                <mat-radio-group aria-label="Select an option" formControlName="payment" fxLayout="column">
+                    <div *ngFor="let payment of initData.paymentTypes">
+                        <mat-radio-button  value="{{payment.id}}">{{payment.name}}</mat-radio-button>
+                        <p>{{payment.description}}</p>
+                    </div>
+                </mat-radio-group>
+                <button type="submit" (click)="chosePaymant()">Przejdź do podsumowania</button>
+            </form>
         </mat-tab>
-        <mat-tab label="Podsumowanie" *ngIf="!chosenCar || !userLogged || !rentSummary" disabled></mat-tab>
-        <mat-tab label="Podsumowanie" *ngIf="chosenCar && userLogged && rentSummary">
-            Content 4
+        <mat-tab label="Podsumowanie" *ngIf="!chosenCar || !userLogged || !chosenPaymentId" disabled></mat-tab>
+        <mat-tab label="Podsumowanie" *ngIf="chosenCar && userLogged && chosenPaymentId" fxFlexAlign="center center">
+            <h1> Podsumowanie </h1>
+            <h2> Wybrane auto</h2>
+            <div class="info-block" fxLayout="row">
+                <div class="summary-car-photo">
+                    <img *ngIf="!chosenCar.photo" src="/assets/image-placeholder.png" width="700" mat-card-xl-image>
+                    <img *ngIf="chosenCar.photo" src="{{'/api/data/carPhotos/' + chosenCar.photo}}" width="500" mat-card-xl-image>
+                </div>
+                <div fxLayout="column">
+                    <div class="summaryCarInfo" fxFlex="10">
+                        {{chosenCar.brand}} {{chosenCar.model}} {{chosenCar.year}}
+                    </div>
+                    <div class="car-specification" fxFlex="90">
+                        <table class="car-table">
+                            <tr>
+                                <td>
+                                    Moc
+                                </td>
+                                <td>
+                                    {{chosenCar.carTechnicalSpecification.power}} KM
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    0 - 100 km/h
+                                </td>
+                                <td>
+                                    {{chosenCar.carTechnicalSpecification.acceleration}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Skrzynia 
+                                </td>
+                                <td>
+                                    {{chosenCar.carTechnicalSpecification.gearbox}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Napęd
+                                </td>
+                                <td>
+                                    {{chosenCar.carTechnicalSpecification.drive}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Silnik
+                                </td>
+                                <td>
+                                    {{chosenCar.carTechnicalSpecification.engine}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <h2> Okres najmu </h2>
+                <div class="info-block">
+                    <p>Ilość dni: {{chosenCar.days}}</p>
+                    <p>od: {{chosenCar.rentalDate | date:'dd-MM-yyyy hh:mm'}} </p>
+                    <p>do: {{chosenCar.returnDate | date:'dd-MM-yyyy hh:mm'}}</p>
+                </div>
+            <h2>Koszta</h2>
+            <div class="info-block">
+                <p>Depozyt: {{chosenCar.deposit}} PLN</p>
+                <p>Cena dostarczenia do {{chosenCar.rentalPlace}}: {{chosenCar.rentalPrice | number:'1.2-2'}}zł</p>
+                <p>Cena odbioru z {{chosenCar.returnPlace}}: {{chosenCar.returnPrice | number:'1.2-2'}}zł</p>
+                <p>Cena auta: {{chosenCar.grossValue}}zł</p>
+                <p>Cena ostateczna: {{chosenCar.finalPrice | number:'1.2-2'}}zł </p>
+                <p>Sposób płatności: {{initData.paymentTypes.at(chosenPaymentId)?.name}}</p>
+            </div>
+            <h2> Limity najmu</h2>
+            <div class="info-block">
+                <p>Limit kilometrów {{chosenCar.distanceLimit}} km/dzień</p>
+                <p>Cena za dodatkowy kilometr {{chosenCar.distanceLimitPenalty}} zł/km</p>
+            </div>
+            <button mat-raised-button (click)="reserve()"></button>
         </mat-tab>
+        
       </mat-tab-group>
 </div>
-
-<div class="user-and-payment" *ngIf="chosenCar">
-
+<div *ngIf="rentSummary">
+    Podsumowanie
 </div>
 
 

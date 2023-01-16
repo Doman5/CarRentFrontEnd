@@ -47,7 +47,6 @@
         </div>
       </div>
     </mat-form-field>
-    // specyfikacja techniczna
     <div formGroupName="carTechnicalSpecification" fxLayout="column">
       <mat-form-field>
         <mat-label>Moc</mat-label>
@@ -84,8 +83,8 @@
         <input matInput placeholder="Podaj ilość miejsc w aucie" formControlName="seats">
       </mat-form-field>
     </div>
-    // wyposażenie
 
+    <h2>Wyposażenie</h2>
     <div formArrayName="equipments">
       <div *ngFor="let item of equipments.controls; index as i" class="equipment-area">
         <div fxLayout="row" fxLayoutAlign="center center">
@@ -101,7 +100,6 @@
     </button>
 
 
-    // opis
     <h2> Opis </h2>
     <div formArrayName="descriptions">
       <div *ngFor="let item of descriptions.controls; index as i" class="description-area">
@@ -117,7 +115,6 @@
       <mat-icon>add</mat-icon>
     </button>
 
-    // cena
     <div formGroupName="carPrice" fxLayout="column">
       <h2> Ceny </h2>
       <mat-form-field appearance="fill">
@@ -165,7 +162,6 @@
         <input matInput placeholder="Podaj cene za kilometr transportu" formControlName="transportPricePerKm">
       </mat-form-field>
     </div>
-    //kategoria
     <div formGroupName="category">
       <mat-form-field appearance="fill">
         <mat-label>Kategoria</mat-label>
@@ -184,6 +180,22 @@
 </form>
 <img *ngIf="image" src="{{'/api/data/productImage/' + image}}" width="200">
 <form [formGroup]="imageForm" (submit)="uploadFile()">
-  <input type="file" [accept]="requiredFileTypes" (change)="onFileChange($event)">
+  <input type="file" [accept]="requiredFileTypes" (change)="onFileChange($event)" multiple>
   <button mat-flat-button color="basic"> Upload </button>
+  
+  <div formArrayName="photos">
+    <div *ngFor="let item of photos.controls; index as i" class="photo-area">
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <input type="file" [accept]="requiredFileTypes" (change)="onFileChange($event)">
+        <button mat-flat-button color="accent"> Upload </button>
+        <button mat-stroked-button color="accent" (click)="deletePhoto(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <button mat-stroked-button color="accent" (click)="addPhoto()">
+    <mat-icon>add</mat-icon>
+  </button>
 </form>

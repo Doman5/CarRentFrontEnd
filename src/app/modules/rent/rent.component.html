@@ -7,29 +7,30 @@
                         <div fxLayout="row" fxLayoutGap="50px">
                             <div>
                                 <label for="rentalDate">Data wynajmu</label>
-                                <input type="datetime-local" formControlName="rentalDate" id="rentalDate" value="{{today}}"><br>
+                                <input type="datetime-local" formControlName="rentalDate" id="rentalDate" value="{{today}}" (change)="searchCar()"><br>
                                 <label for="rentalPlace">Miejsce wynajmu</label>
-                                <input formControlName="rentalPlace" id="rentalPlace">
+                                <input formControlName="rentalPlace" id="rentalPlace" (change)="searchCar()">
                             </div>
                             <mat-icon>arrow_right_alt</mat-icon>
                             <div>
                                 <label for="returnDate">Data oddania</label>
-                                <input type="datetime-local" formControlName="returnDate" id="returnDate"><br>
+                                <input type="datetime-local" formControlName="returnDate" id="returnDate" (change)="searchCar()"><br>
                                 <label for="returnPlace">Miejsce oddania</label>
-                                <input formControlName="returnPlace" id="returnPlace">
+                                <input formControlName="returnPlace" id="returnPlace" onchange="searchCar()">
                             </div>
                         </div>
                         <div class="only-available-checbox" fxLayout="row">
                             <label for="onlyAvailable"> Tylko dostępne</label>
-                            <input type="checkbox" formControlName="onlyAvailable" id="onlyAvailable">
+                            <input type="checkbox" formControlName="onlyAvailable" id="onlyAvailable" (change)="searchCar()">
                         </div>
                         <div class="sorting" fxLayout="row">
                             <label for="sortingType"> Sortowanie:</label>
-                            <select formControlName="sortingType" id="sortingType">
-                                <option *ngFor="let type of initData?.sortingTypes" value="{{type}}">{{type}}</option>
+                            <select formControlName="sortingType" id="sortingType" (change)="searchCar()">
+                                <option *ngFor="let type of initData?.sortingTypes" value="{{type}}" >{{type}}</option>
                             </select>
                         </div>
                         <button (click)="searchCar()"> Szukaj </button>
+                        <div class="error" *ngIf="searchError">{{searchError}}</div>
                     </form>
                 </div>
                 <div class="rent-cars-list">
@@ -101,8 +102,9 @@
                                 <p *ngIf="car.days > 1"> Cena za {{car.days}} dni</p>
                                 <h1 class="car-value">{{car.grossValue}}PLN</h1>
                                 <h3>netto</h3>
-                                <button mat-raised-button *ngIf="car.available" color="accent" (click)="goNext(car)"> Zarezewuj </button>
+                                <button mat-raised-button *ngIf="car.available && !searchError" color="accent" (click)="goNext(car)"> Zarezewuj </button>
                                 <button mat-raised-button *ngIf="!car.available" disabled color="accent"> Zarezerowany </button>
+                                <button mat-raised-button *ngIf="searchError" disabled color="accent"> Niedostępny </button>
                             </div>
                         </div>
                       </mat-card>
@@ -252,7 +254,8 @@
                 <p>Limit kilometrów {{chosenCar.distanceLimit}} km/dzień</p>
                 <p>Cena za dodatkowy kilometr {{chosenCar.distanceLimitPenalty}} zł/km</p>
             </div>
-            <button mat-raised-button (click)="reserve()"></button>
+            <button mat-raised-button *ngIf="chosenPaymentId === 2"> Przejdź na przelewy24</button>
+            <button  mat-raised-button *ngIf="chosenPaymentId !== 2" (click)="reserve()"> Rezerwuje</button>
         </mat-tab>
         
       </mat-tab-group>

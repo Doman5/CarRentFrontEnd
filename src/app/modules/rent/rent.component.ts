@@ -42,6 +42,7 @@ export class RentComponent implements OnInit {
   registerError = false;
   registerErrorMessage!: string;
   initData!: InitRent;
+  searchError!: string;
   
 
   ngOnInit(): void {
@@ -93,6 +94,12 @@ export class RentComponent implements OnInit {
 
     if(this.placeDateForm.get('sortingType')?.value === '') {
       sortingType = "Malejaco"
+    }
+
+    if(this.placeDateForm.get('rentalDate')?.value > this.placeDateForm.get('returnDate')?.value) {
+      this.searchError = "Data oddania musi być później niż data wynajmu";
+    } else {
+      this.searchError = "";
     }
 
     this.getRentsCars({

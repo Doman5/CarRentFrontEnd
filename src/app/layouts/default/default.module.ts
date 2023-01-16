@@ -8,6 +8,9 @@ import {MaterialModule} from "../../shared/material.module";
 import { CarDetailComponent } from 'src/app/modules/car/car-detail/car-detail.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RentComponent } from 'src/app/modules/rent/rent.component';
+import { LoginComponent } from 'src/app/modules/login/login.component';
+import { RegisterComponent } from 'src/app/modules/register/register.component';
+import { ProfileComponent } from 'src/app/modules/profile/profile.component';
 
 
 @NgModule({
@@ -15,7 +18,10 @@ import { RentComponent } from 'src/app/modules/rent/rent.component';
     DefaultComponent,
     CarComponent,
     CarDetailComponent,
-    RentComponent
+    RentComponent,
+    LoginComponent,
+    RegisterComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,

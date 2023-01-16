@@ -13,6 +13,9 @@ import { CarDetailComponent } from './modules/car/car-detail/car-detail.componen
 import { RentComponent } from './modules/rent/rent.component';
 import { AdminLoginComponent } from './modules/admin/admin-login/admin-login.component';
 import { AdminAuthorizationGuard } from './modules/common/guard/adminAuthorizationGuard';
+import { LoginComponent } from './modules/login/login.component';
+import { RegisterComponent } from './modules/register/register.component';
+import { ProfileComponent } from './modules/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -20,8 +23,10 @@ const routes: Routes = [
       {path: '', component: CarComponent},
       {path: 'panel-rezerwacyjny', component: RentComponent},
       {path: 'Auta-Do-Wynajmu', component: CarComponent},
-      {path: ':slug', component: CarDetailComponent}
-      
+      {path: 'auta/:slug', component: CarDetailComponent},
+      {path: 'logowanie', component: LoginComponent},
+      {path: 'rejestracja', component: RegisterComponent},
+      {path: 'profil', component: ProfileComponent},
     ]
   },
   {

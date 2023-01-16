@@ -70,9 +70,8 @@ export class AdminCarAddComponent implements OnInit {
       })
     });
     this.imageForm = this.formBuilder.group({
-      photos: this.formBuilder.array([
-        this.formBuilder.control('photo'),
-      ])})
+      photos: this.formBuilder.array([]),
+      })
   }
 
   submit() {
@@ -133,6 +132,18 @@ export class AdminCarAddComponent implements OnInit {
   
   deleteDescription(index: number) {
     this.descriptions.removeAt(index);
+  }
+
+  get photos() {
+    return this.imageForm.get('photos') as FormArray;
+  }
+
+  addPhoto() {
+    this.photos.push(this.formBuilder.control(''));
+  }
+  
+  deletePhoto(index: number) {
+    this.photos.removeAt(index);
   }
 
 

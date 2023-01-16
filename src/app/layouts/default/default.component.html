@@ -5,7 +5,9 @@
   <div fxLayoutGap="15">
     <button mat-flat-button routerLink="/Auta-Do-Wynajmu"> Samochody</button>
     <button mat-flat-button color="warn" routerLink="/panel-rezerwacyjny"> Wynajmij</button>
-    <button mat-button routerLink="/login"> Zaloguj</button>
+    <button mat-button routerLink="/logowanie" *ngIf="!isLoggedIn"> Zaloguj</button>
+    <button mat-button routerLink="/profil" *ngIf="isLoggedIn"> Profil</button>
+    <button mat-button *ngIf="isLoggedIn" (click)="logout()"> Wyloguj</button>
   </div>
 </header>
 <div class="main">

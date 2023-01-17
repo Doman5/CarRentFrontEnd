@@ -1,0 +1,25 @@
+.user-rents {
+    width: 1200px;
+    margin: auto;
+}
+
+.user-rent-table {
+    width: 1200px;
+    border: solid 5px black;
+}
+
+.user-rent-table > tr > td {
+    border-bottom: solid 5px black;
+}
+
+
+.user-rent-table > thead {
+    font-size: 17px;
+    height: 70px;
+    border: solid 5px black;
+}
+
+.user-info {
+    width: 600px;
+    margin: auto;
+}

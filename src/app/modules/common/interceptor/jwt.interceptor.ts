@@ -11,7 +11,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let token = this.jwtService.getToken();
-        if(token && (req.url.startsWith("/api/admin") || req.url.startsWith("/api/worker") || req.url.startsWith("/api/rent")) ) {
+        if(token && (req.url.startsWith("/api/admin") || req.url.startsWith("/api/worker") || req.url.startsWith("/api/rent") || req.url.startsWith("/api/profile")) ) {
             req = req.clone({
                 headers: req.headers.set("Authorization", "Bearer " + token)
             });

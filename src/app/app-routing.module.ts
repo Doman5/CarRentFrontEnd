@@ -23,7 +23,7 @@ const routes: Routes = [
       {path: '', component: CarComponent},
       {path: 'panel-rezerwacyjny', component: RentComponent},
       {path: 'Auta-Do-Wynajmu', component: CarComponent},
-      {path: 'auta/:slug', component: CarDetailComponent},
+      {path: 'Auta/:slug', component: CarDetailComponent},
       {path: 'logowanie', component: LoginComponent},
       {path: 'rejestracja', component: RegisterComponent},
       {path: 'profil', component: ProfileComponent},

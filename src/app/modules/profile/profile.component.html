@@ -1,1 +1,52 @@
-<p>profile works!</p>
+<div class="user-rents">
+    <h1> Historia wynajmów</h1>
+    <table class="user-rent-table">
+        <thead>
+            <tr>
+                <td> Id </td>
+                <td> Auto </td>
+                <td> Sposób płatności </td>
+                <td> Status </td>
+                <td> Data wynajmu </td>
+                <td> Miejsce Wynajmu </td>
+                <td> Data Oddania </td>
+                <td> Miejsce Oddania </td>
+                <td> Wartość </td>
+            </tr>
+        </thead>
+        <tr *ngFor="let rent of userRents">
+            <td>{{rent.id}}</td>
+            <td><a routerLink="/Auta/{{rent.car.slug}}">{{rent.car.name}}</a></td>
+            <td>{{rent.paymentType}}</td>
+            <td>{{rent.rentStatus}}</td>
+            <td>{{rent.rentalDate | date:"dd-MM-yyyy hh:mm"}}</td>
+            <td>{{rent.rentalPlace}}</td>
+            <td>{{rent.returnDate | date:"dd-MM-yyyy hh:mm"}}</td>
+            <td>{{rent.returnPlace}}</td>
+            <td>{{rent.grossValue}} zł</td>
+        </tr>
+    </table>
+</div>
+<div class="user-info">
+    <h1>Dane użytkownika</h1>
+    
+    <form [formGroup]="userForm" fxLayout="column" *ngIf="!canEditUser">
+        <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input matInput [disabled]="canEditUser" formControlName="username" value="imie">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Imie</mat-label>
+            <input matInput  formControlName="firstName">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Nazwisko</mat-label>
+            <input matInput  formControlName="secondName">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Telefon</mat-label>
+            <input matInput  formControlName="phone">
+        </mat-form-field>
+        <button mat-raised-button (click)="editUser()">Edytuj</button> 
+    </form>
+</div>

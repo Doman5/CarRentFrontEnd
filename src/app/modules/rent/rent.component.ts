@@ -191,17 +191,7 @@ export class RentComponent implements OnInit {
     }
 
   }
-
-  private isPasswordsIdentical(register: any) {
-    if(register.password === register.repeatPassword) {
-      this.registerError = false;
-      return true;
-    }
-    this.registerError = true;
-    this.registerErrorMessage = "Hasła nie są identyczne";
-    return false;
-  }
-
+  
   reserve() {
     this.rentService.placeRent({
       carId: this.chosenCar?.carId,
@@ -217,4 +207,16 @@ export class RentComponent implements OnInit {
       rentSummary => this.rentSummary = rentSummary
     )
   }
+
+  private isPasswordsIdentical(register: any) {
+    if(register.password === register.repeatPassword) {
+      this.registerError = false;
+      return true;
+    }
+    this.registerError = true;
+    this.registerErrorMessage = "Hasła nie są identyczne";
+    return false;
+  }
+
+  
 }

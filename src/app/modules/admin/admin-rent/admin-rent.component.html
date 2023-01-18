@@ -1,0 +1,56 @@
+<h1> Lista samochodów <button mat-raised-button color="accent" routerLink="/admin/cars/add"><mat-icon>add</mat-icon></button> </h1>
+<table mat-table [dataSource]="data" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> id </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="car">
+    <th mat-header-cell *matHeaderCellDef> Auto </th>
+    <td mat-cell *matCellDef="let element"> {{element.car}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="paymentType">
+    <th mat-header-cell *matHeaderCellDef> Sposób płatności </th>
+    <td mat-cell *matCellDef="let element"> {{element.paymentType}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef> Status </th>
+    <td mat-cell *matCellDef="let element" class="status-{{element.rentStatus}}"> {{element.rentStatus}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="rentalDate">
+    <th mat-header-cell *matHeaderCellDef> Data wynajmu </th>
+    <td mat-cell *matCellDef="let element"> {{element.rentalDate | date:"dd-MM-yyyy HH:mm"}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="returnDate">
+    <th mat-header-cell *matHeaderCellDef> Data oddania </th>
+    <td mat-cell *matCellDef="let element"> {{element.returnDate | date:"dd-MM-yyyy HH:mm"}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="grossValue">
+    <th mat-header-cell *matHeaderCellDef> Wartość </th>
+    <td mat-cell *matCellDef="let element"> {{element.grossValue}}zł </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> akcje </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button [routerLink]="['/admin/rents/update', element.id]">
+        <mat-icon color="primary">edit</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[25, 50, 100]"
+               [pageSize]="25"
+               showFirstLastButtons
+               [length]="totalElements"
+               aria-label="Select page of periodic elements">
+</mat-paginator>

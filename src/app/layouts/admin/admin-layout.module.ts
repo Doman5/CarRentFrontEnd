@@ -13,6 +13,8 @@ import { AdminCategoryAddComponent } from 'src/app/modules/admin/admin-category/
 import { AdminCategoryComponent } from 'src/app/modules/admin/admin-category/admin-category.component';
 import { AdminCategoryUpdateComponent } from 'src/app/modules/admin/admin-category/admin-category-update/admin-category-update.component';
 import { AdminLoginComponent } from 'src/app/modules/admin/admin-login/admin-login.component';
+import { AdminRentComponent } from 'src/app/modules/admin/admin-rent/admin-rent.component';
+import { AdminRentUpdateComponent } from 'src/app/modules/admin/admin-rent/admin-rent-update/admin-rent-update.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { AdminLoginComponent } from 'src/app/modules/admin/admin-login/admin-log
     AdminCategoryAddComponent,
     AdminCategoryComponent,
     AdminCategoryUpdateComponent,
-    AdminLoginComponent
+    AdminLoginComponent,
+    AdminRentComponent,
+    AdminRentUpdateComponent
   ],
   imports: [
     CommonModule,

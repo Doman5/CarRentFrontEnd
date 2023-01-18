@@ -9,10 +9,6 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { JwtInterceptor } from './modules/common/interceptor/jwt.interceptor';
-import { AdminAuthorizationGuard } from './modules/common/guard/adminAuthorizationGuard';
-import { LoginComponent } from './modules/login/login.component';
-import { RegisterComponent } from './modules/register/register.component';
-import { ProfileComponent } from './modules/profile/profile.component';
 
 @NgModule({
   declarations: [

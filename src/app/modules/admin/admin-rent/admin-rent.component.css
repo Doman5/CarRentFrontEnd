@@ -1,0 +1,33 @@
+.status-Nowe{
+    color: rgb(217, 252, 223);
+    padding: 7px;
+}
+
+.status-PAID{
+    background-color: rgb(250, 158, 158);
+    padding: 7px;
+}
+.status-Częściowoopłacone{
+    background-color: rgb(250, 231, 170);
+    padding: 7px;
+}
+.status-Opłacone{
+    background-color: rgb(253, 217, 253);
+    padding: 7px;
+}
+.status-Oczekujące{
+    background-color: rgb(219, 218, 253);
+    padding: 7px;
+}
+.status-Wtrakciewypożyczenia{
+    background-color: rgb(236, 238, 237);
+    padding: 7px;
+}
+.status-Zrealizowane{
+    background-color: rgb(1, 255, 128);
+    padding: 7px;
+}
+.status-Anulowane{
+    background-color: rgb(177, 176, 176);
+    padding: 7px;
+}

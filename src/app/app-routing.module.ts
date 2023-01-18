@@ -16,6 +16,8 @@ import { AdminAuthorizationGuard } from './modules/common/guard/adminAuthorizati
 import { LoginComponent } from './modules/login/login.component';
 import { RegisterComponent } from './modules/register/register.component';
 import { ProfileComponent } from './modules/profile/profile.component';
+import { AdminRentComponent } from './modules/admin/admin-rent/admin-rent.component';
+import { AdminRentUpdateComponent } from './modules/admin/admin-rent/admin-rent-update/admin-rent-update.component';
 
 const routes: Routes = [
   {
@@ -31,7 +33,7 @@ const routes: Routes = [
   },
   {
     path:'', component: AdminLayoutComponent, children: [
-      {path: 'admin', component: AdminLayoutComponent},
+      {path: 'admin', component: AdminCarComponent},
       {path: 'admin/cars', component: AdminCarComponent},
       {path: 'admin/cars/add', component: AdminCarAddComponent},
       {path: 'admin/cars/update/:id', component: AdminCarUpdateComponent},
@@ -39,6 +41,8 @@ const routes: Routes = [
       {path: 'admin/categories/add', component: AdminCategoryAddComponent},
       {path: 'admin/categories/update/:id', component: AdminCategoryUpdateComponent},
       {path: 'admin/login', component: AdminLoginComponent},
+      {path: 'admin/rents', component: AdminRentComponent},
+      {path: 'admin/rents/update/:id', component: AdminRentUpdateComponent},
     ]
   }
 ];

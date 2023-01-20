@@ -161,8 +161,7 @@
       </mat-form-field>
       <button mat-stroked-button color="accent"(click)="submitCarPrice()"> Edytuj ceny</button>
   </form>
-
-      <!-- //kategoria -->
+  <!-- category -->
   <form [formGroup]="categoryForm" fxLayout="column">
       <mat-form-field appearance="fill">
           <mat-label>Kategoria</mat-label>
@@ -173,5 +172,10 @@
           </mat-select>
       </mat-form-field>
       <button mat-stroked-button color="accent" (click)="submitCategory()"> Edytuj kategorie</button>
+  </form>
+  <img *ngIf="image" src="{{'/api/data/carPhotos/' + image}}" width="600">
+  <form [formGroup]="imageForm">
+      <input type="file" [accept]="requiredFileTypes" (change)="onFileChange($event)">
+      <button mat-flat-button color="basic" (click)="uploadFile()">Upload</button>
   </form>
 </div>

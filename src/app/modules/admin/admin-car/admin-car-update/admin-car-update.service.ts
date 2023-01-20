@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AdminCarBasicInfo } from '../model/admin-basic-info';
+import { AdminCarPhotoDto } from '../model/admin-car-photo-dto';
 import { AdminCarPriceDto } from '../model/admin-car-price-dto';
 import { AdminCarTechnicalSpecificationDto } from '../model/admin-car-technical-specification-dto';
 import { AdminCategoryDto } from '../model/admin-category-dto';
@@ -44,5 +45,8 @@ export class AdminCarUpdateService {
   updateCarCategory(id: number, category: AdminCategoryDto):Observable<AdminCategoryDto> {
     return this.http.put<AdminCategoryDto>(`/api/admin/cars/${id}/category`,category);
   }
-
+  
+  uploadImage(formData: FormData, id: number): Observable<AdminCarPhotoDto> {
+    return this.http.post<AdminCarPhotoDto>(`/api/admin/cars/${id}/upload-photo`, formData);
+  }
 }

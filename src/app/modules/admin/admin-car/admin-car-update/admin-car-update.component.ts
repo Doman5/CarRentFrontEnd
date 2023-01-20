@@ -25,6 +25,9 @@ export class AdminCarUpdateComponent implements OnInit{
   carDescriptionForm!: FormGroup;
   carPriceForm!: FormGroup;
   categoryForm!: FormGroup;
+  imageForm!: FormGroup;
+  requiredFileTypes = "image/jpeg, image/png";
+  image: string | null = null;
   
   constructor(
     private router: ActivatedRoute,
@@ -81,6 +84,9 @@ export class AdminCarUpdateComponent implements OnInit{
         this.categoryForm = this.formBuilder.group({
           name: ['']
         });
+        this.imageForm = this.formBuilder.group({
+          file: ['']
+        })
       }
 
   getBasicInfo() {
@@ -231,6 +237,23 @@ export class AdminCarUpdateComponent implements OnInit{
   getTypes() {
     this.formTypeService.getTypes()
       .subscribe(types => this.types = types)
+  }
+
+  onFileChange(event: any) {
+    if(event.target.files.length > 0) {
+      console.log(event.target.files[0]);
+      this.imageForm.patchValue({
+        file: event.target.files[0]
+      });
+    }
+  }
+
+  uploadFile() {
+    let id = Number(this.router.snapshot.params['id']);
+    let formData = new FormData();
+    formData.append('file', this.imageForm.get('file')?.value);
+    this.adminCarUpdateService.uploadImage(formData, id)
+      .subscribe(result => this.image = result.photo)
   }
 
   get brand() {

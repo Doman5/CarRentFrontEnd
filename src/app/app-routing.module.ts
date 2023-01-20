@@ -33,16 +33,16 @@ const routes: Routes = [
   },
   {
     path:'', component: AdminLayoutComponent, children: [
-      {path: 'admin', component: AdminCarComponent},
-      {path: 'admin/cars', component: AdminCarComponent},
-      {path: 'admin/cars/add', component: AdminCarAddComponent},
-      {path: 'admin/cars/update/:id', component: AdminCarUpdateComponent},
-      {path: 'admin/categories', component: AdminCategoryComponent},
-      {path: 'admin/categories/add', component: AdminCategoryAddComponent},
-      {path: 'admin/categories/update/:id', component: AdminCategoryUpdateComponent},
+      {path: 'admin', component: AdminCarComponent, canActivate:[AdminAuthorizationGuard]},
+      {path: 'admin/cars', component: AdminCarComponent, canActivate:[AdminAuthorizationGuard]},
+      {path: 'admin/cars/add', component: AdminCarAddComponent, canActivate:[AdminAuthorizationGuard]},
+      {path: 'admin/cars/update/:id', component: AdminCarUpdateComponent, canActivate:[AdminAuthorizationGuard]},
+      {path: 'admin/categories', component: AdminCategoryComponent, canActivate:[AdminAuthorizationGuard]},
+      {path: 'admin/categories/add', component: AdminCategoryAddComponent, canActivate:[AdminAuthorizationGuard]},
+      {path: 'admin/categories/update/:id', component: AdminCategoryUpdateComponent, canActivate:[AdminAuthorizationGuard]},
       {path: 'admin/login', component: AdminLoginComponent},
-      {path: 'admin/rents', component: AdminRentComponent},
-      {path: 'admin/rents/update/:id', component: AdminRentUpdateComponent},
+      {path: 'admin/rents', component: AdminRentComponent, canActivate:[AdminAuthorizationGuard]},
+      {path: 'admin/rents/update/:id', component: AdminRentUpdateComponent, canActivate:[AdminAuthorizationGuard]},
     ]
   }
 ];

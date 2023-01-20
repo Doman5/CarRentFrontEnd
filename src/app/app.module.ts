@@ -9,6 +9,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { JwtInterceptor } from './modules/common/interceptor/jwt.interceptor';
+import { AdminAuthorizationGuard } from './modules/common/guard/adminAuthorizationGuard';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { JwtInterceptor } from './modules/common/interceptor/jwt.interceptor';
     HttpClientModule,
     BrowserAnimationsModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    AdminAuthorizationGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

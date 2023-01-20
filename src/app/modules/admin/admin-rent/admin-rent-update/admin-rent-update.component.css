@@ -1,0 +1,25 @@
+div {
+    border-bottom: solid 3px black;
+    padding-left: 20px;
+    font-size: 17px;
+}
+
+h2 {
+    color: rgb(0, 0, 0);
+}
+
+.status {
+    width: 400px;
+}
+
+h1 {
+    font-weight: 900;
+}
+
+table > tr > td {
+    padding: 10px;
+}
+
+.logNote{
+    width: 400px;
+}

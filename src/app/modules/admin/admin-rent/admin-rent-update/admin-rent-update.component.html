@@ -1,28 +1,28 @@
-<!-- <h1> Zamówienie o id: {{rentId}}</h1> -->
-
+<h1> Zamówienie o id: {{rent.id}}</h1>
 <div>
     <h2> Auto </h2>
     {{rent.car}}
 </div>
 <div>
     <h2>Sposób płatności</h2>
-    {{rent.payment}}
+    {{rent.paymentType}}
 </div>
 <div>
-    <h2>Wypoyczający</h2>
+    <h2>Wypożyczający</h2>
     <a [routerLink]="['/admin/users/', rent.username]">{{rent.username}}</a>
 </div>
 <div>
     <h2>Status</h2>
-    <form [formGroup]="statusForm">
+    <form [formGroup]="statusForm" fxLayout="column">
         <mat-form-field appearance="fill">
-            <mat-label>Favorite food</mat-label>
-            <mat-select>
-              <mat-option *ngFor="let status of statuses" [value]="ststus.value">
-                {{status}}
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="rentStatus">
+              <mat-option *ngFor="let status of statuses| keyvalue" [value]="status.value">
+                {{status.value}}
               </mat-option>
             </mat-select>
           </mat-form-field>
+          <button mat-stroked-button (click)="changeStatus()" class="status"> Zmień status </button>
     </form>
 </div>
 <div>
@@ -43,6 +43,15 @@
 </div>
 <div>
     <h2>Wartość</h2>
-    {{rent.grossValue}}
+    {{rent.grossValue}}zł
+</div>
+<div>
+    <h2>Logi</h2>
+    <table>
+        <tr *ngFor="let log of rent.rentLogs">
+            <td class="logNote">{{log.note}}</td>
+            <td>{{log.created | date:"dd-MM-yyyy HH:mm"}}</td>
+        </tr>
+    </table>
 </div>
 

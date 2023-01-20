@@ -1,3 +1,5 @@
+import { AdminRentLogDto } from "../admin-rent-update/model/adminRentLogDto"
+
 export interface AdminRentDto {
     id: number,
     car: string,
@@ -6,4 +8,5 @@ export interface AdminRentDto {
     rentalDate: Date,
     returnDate: Date,
     grossValue: number
+    rentLogs: Array<AdminRentLogDto>
 }

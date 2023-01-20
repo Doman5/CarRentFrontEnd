@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormCategoryService } from '../admin-car-form/form-category.service';
 import { FormTypeService } from '../admin-car-form/form-type.service';
 import { AdminCarBasicInfo } from '../model/admin-basic-info';
+import { AdminCarPhotoDto } from '../model/admin-car-photo-dto';
 import { AdminCarPriceDto } from '../model/admin-car-price-dto';
 import { AdminCarTechnicalSpecificationDto } from '../model/admin-car-technical-specification-dto';
 import { AdminCategoryDto } from '../model/admin-category-dto';
@@ -28,6 +29,7 @@ export class AdminCarUpdateComponent implements OnInit{
   imageForm!: FormGroup;
   requiredFileTypes = "image/jpeg, image/png";
   image: string | null = null;
+  photos!: AdminCarPhotoDto[];
   
   constructor(
     private router: ActivatedRoute,
@@ -87,6 +89,7 @@ export class AdminCarUpdateComponent implements OnInit{
         this.imageForm = this.formBuilder.group({
           file: ['']
         })
+        this.getCarPhotos();
       }
 
   getBasicInfo() {
@@ -253,7 +256,22 @@ export class AdminCarUpdateComponent implements OnInit{
     let formData = new FormData();
     formData.append('file', this.imageForm.get('file')?.value);
     this.adminCarUpdateService.uploadImage(formData, id)
-      .subscribe(result => this.image = result.photo)
+      .subscribe(result => this.photos.push(result))
+  }
+
+  getCarPhotos() {
+    let id = Number(this.router.snapshot.params['id']);
+    this.adminCarUpdateService.getCarPhotos(id)
+      .subscribe(result => this.photos = result)
+  }
+
+  deletePhoto(index: number, photoId: number) {
+    if (index > -1) {
+      this.photos.splice(index, 1);
+    }
+
+    this.adminCarUpdateService.deletePhoto(photoId)
+      .subscribe()
   }
 
   get brand() {

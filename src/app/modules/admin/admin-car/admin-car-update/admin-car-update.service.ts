@@ -49,4 +49,12 @@ export class AdminCarUpdateService {
   uploadImage(formData: FormData, id: number): Observable<AdminCarPhotoDto> {
     return this.http.post<AdminCarPhotoDto>(`/api/admin/cars/${id}/upload-photo`, formData);
   }
+  
+  getCarPhotos(id: number): Observable<Array<AdminCarPhotoDto>> {
+    return this.http.get<Array<AdminCarPhotoDto>>(`/api/admin/cars/${id}/carPhotos`);
+  }
+
+  deletePhoto(photoId: number):Observable<void> {
+    return this.http.delete<void>("/api/admin/cars/carPhotos/" + photoId);
+  }
 }

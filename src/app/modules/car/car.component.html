@@ -47,7 +47,7 @@
     <mat-card *ngFor="let car of cars" class="car-card">
         <a routerLink="{{'/cars/' + car.slug}}">
           <img *ngIf="!car.photo" src="/assets/image-placeholder.png" width="700" mat-card-xl-image>
-          <img *ngIf="car.photo" src="{{'/api/data/carPhotos/' + car.photo}}" width="500" mat-card-xl-image>
+          <img *ngIf="car.photo" src="{{'/api/data/carPhotos/' + car.photo}}" mat-card-xl-image>
         </a>
         <mat-card-header fxLayoutAlign="center center">
           <mat-card-title>{{car.brand}} {{car.model}}</mat-card-title>

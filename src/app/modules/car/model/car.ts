@@ -1,5 +1,5 @@
 import { AdminCarPriceDto } from "../../admin/admin-car/model/admin-car-price-dto";
-import { CarPhoto } from "./caPhoto";
+import { CarPhoto } from "./carPhoto";
 import { CarDescription } from "./carDescription";
 import { CarEquipment } from "./carEquipment";
 import { CarPrice } from "./carPrice";

@@ -71,7 +71,7 @@
         <div class="photos" id="photo">
             <h2>Zdjecia</h2>
             <div *ngFor="let photo of car.photos">
-                <img src="{{photo.photo}}">
+                <img src="{{'/api/data/carPhotos/' + photo.photo}}" width="600">
             </div>
         </div>
         <div class="prices" id="price">
@@ -119,7 +119,7 @@
     <div class="rent-card" fxFlex="30">
         <mat-card class="car-card">
               <img *ngIf="!car.photos.at(0)" src="/assets/image-placeholder.png" width="400">
-              <img *ngIf="car.photos.at(0)" src="{{'/api/data/carPhotos/' + car.photos.at(0)}}" width="400">
+              <img *ngIf="car.photos.at(0)" src="{{'/api/data/carPhotos/' + car.photos[0].photo}}">
             <mat-card-header fxLayoutAlign="center center">
               <mat-card-title>{{car.brand}} {{car.model}}</mat-card-title>
               <mat-card-subtitle>{{car.year}}</mat-card-subtitle>

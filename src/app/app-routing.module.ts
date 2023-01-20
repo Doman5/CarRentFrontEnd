@@ -33,7 +33,7 @@ const routes: Routes = [
   },
   {
     path:'', component: AdminLayoutComponent, children: [
-      {path: 'admin', component: AdminCarComponent, canActivate:[AdminAuthorizationGuard]},
+      {path: 'admin', component: AdminCarComponent},
       {path: 'admin/cars', component: AdminCarComponent, canActivate:[AdminAuthorizationGuard]},
       {path: 'admin/cars/add', component: AdminCarAddComponent, canActivate:[AdminAuthorizationGuard]},
       {path: 'admin/cars/update/:id', component: AdminCarUpdateComponent, canActivate:[AdminAuthorizationGuard]},

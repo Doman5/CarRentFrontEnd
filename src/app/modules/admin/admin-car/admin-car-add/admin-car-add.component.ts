@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AdminCarImageService} from "../admin-car-image.service";
 import {AdminCarAddService} from "./admin-car-add.service";
@@ -8,6 +8,8 @@ import {AdminMessageService} from "../../../common/service/admin-message.service
 import {FormCategoryService} from "../admin-car-form/form-category.service";
 import {FormTypeService} from "../admin-car-form/form-type.service";
 import {AdminCategoryDto} from "../model/admin-category-dto";
+import { AdminCarPhotoDto } from '../model/admin-car-photo-dto';
+import { AdminCarDto } from '../model/admin-car-dto';
 
 @Component({
   selector: 'app-admin-car-add',
@@ -21,7 +23,9 @@ export class AdminCarAddComponent implements OnInit {
   categories: Array<AdminCategoryDto> = [];
   types: Array<string> = [];
   image: string | null = null;
-  requiredFileTypes = "image/jpeg, image/png"
+  requiredFileTypes = "image/jpeg, image/png";
+  photos: AdminCarPhotoDto[] = [];
+  photoErrorMessage = "";
 
   constructor(
     private formBuilder: FormBuilder,
@@ -70,12 +74,23 @@ export class AdminCarAddComponent implements OnInit {
       })
     });
     this.imageForm = this.formBuilder.group({
-      photos: this.formBuilder.array([]),
-      })
+      file: ['']
+    })
   }
 
   submit() {
-    this.adminCarAddService.saveNewCar(this.carForm.value)
+    this.adminCarAddService.saveNewCar({
+      brand: this.carForm.get('brand')?.value,
+      model: this.carForm.get('model')?.value,
+      year: this.carForm.get('year')?.value,
+      bodyType: this.carForm.get('bodyType')?.value,
+      carTechnicalSpecification: this.carForm.get('carTechnicalSpecification')?.value,
+      equipments: this.carForm.get('equipments')?.value,
+      descriptions: this.carForm.get('descriptions')?.value,
+      carPrice: this.carForm.get('carPrice')?.value,
+      category: this.carForm.get('category')?.value,
+      photos: this.photos
+    } as AdminCarDto)
       .subscribe({
         next: car => {
           this.router.navigate(["/admin/cars/update", car.id])
@@ -85,20 +100,43 @@ export class AdminCarAddComponent implements OnInit {
       })
   }
 
-  uploadFile() {
-    let formData = new FormData();
-    formData.append('file', this.imageForm.get("file")?.value);
-    this.adminCarImageService.uploadImage(formData)
-      .subscribe(result => this.image = result.filename);
-  }
-
   onFileChange(event: any) {
-    if (event.target.files.length > 0) {
+    if(event.target.files.length > 0) {
+      console.log(event.target.files[0]);
       this.imageForm.patchValue({
         file: event.target.files[0]
       });
     }
   }
+  
+    uploadFile() {
+      let formData = new FormData();
+      if(!this.checkBasicCarInfosIsDeclared()) {
+        this.photoErrorMessage = "Żeby wstawić zdjęcie musisz ustawić marke, model i rok"
+      } else {
+        let carName = this.carForm.get('brand')?.value + "-" + this.carForm.get('model')?.value + "-" + this.carForm.get('year')?.value;
+        formData.append('file', this.imageForm.get('file')?.value);
+        this.adminCarAddService.uploadImage(formData, carName)
+          .subscribe(result => {
+            console.log(result);
+            this.photos.push(result);
+            
+          })
+      }
+    }
+  checkBasicCarInfosIsDeclared(): boolean {
+    return (this.carForm.get('brand')?.value != "" && this.carForm.get('model')?.value != "" && this.carForm.get('year')?.value != "")
+  }
+  
+    deletePhoto(index: number, photoId: number) {
+      if (index > -1) {
+        this.photos.splice(index, 1);
+      }
+  
+      this.adminCarAddService.deletePhoto(photoId)
+        .subscribe()
+    }
+
 
   getCategories() {
     this.formCategoryService.getCategories()
@@ -132,18 +170,6 @@ export class AdminCarAddComponent implements OnInit {
   
   deleteDescription(index: number) {
     this.descriptions.removeAt(index);
-  }
-
-  get photos() {
-    return this.imageForm.get('photos') as FormArray;
-  }
-
-  addPhoto() {
-    this.photos.push(this.formBuilder.control(''));
-  }
-  
-  deletePhoto(index: number) {
-    this.photos.removeAt(index);
   }
 
 

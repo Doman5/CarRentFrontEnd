@@ -173,10 +173,13 @@
       </mat-form-field>
       <button mat-stroked-button color="accent" (click)="submitCategory()"> Edytuj kategorie</button>
   </form>
-  <div *ngFor="let photo of photos; index as i">
-    <img src="{{'/api/data/carPhotos/' + photo.photo}}" width="400">
-    <button mat-stroked-button (click)="deletePhoto(i, photo.id)"><mat-icon>delete</mat-icon></button>
+  <div fxLayout="row wrap">
+    <div *ngFor="let photo of photos; index as i" class="car-photo-div">
+      <img src="{{'/api/data/carPhotos/' + photo.photo}}" width="400">
+      <button mat-stroked-button (click)="deletePhoto(i, photo.id)" class="delete-car-button"><mat-icon>delete</mat-icon></button>
+    </div>
   </div>
+  
   <form [formGroup]="imageForm">
       <input type="file" [accept]="requiredFileTypes" (change)="onFileChange($event)">
       <button mat-flat-button color="basic" (click)="uploadFile()">Upload</button>

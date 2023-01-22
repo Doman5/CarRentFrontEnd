@@ -91,25 +91,37 @@
         <button mat-stroked-button color="accent" (click)="submitCarTechSpec()"> Edytuj specyfikacje techniczną</button>
   </form>
   <!-- // wyposażenie -->
-  <form fxLayout="column" [formGroup]="carEquipmentForm">
+  <form  [formGroup]="carEquipmentForm" fxLayoutAlign="center">
+    <div fxLayout="column">
       <h2> Wyposażenie</h2>
-  <!--    <div formArrayName="equipments">-->
-  <!--      <div *ngFor="let equipment of carForm.get('equipments').controls; index as i">-->
-  <!--        <input matInput [formControlName]="i">-->
-  <!--      </div>-->
-  <!--    </div>-->
-      <button mat-stroked-button color="accent" (click)="submitCarEquipment()"> Edytuj Wyposażenie</button>
+      <div formArrayName="equipments" >
+        <div *ngFor="let equipment of equipments.controls; index as i">
+          <input class="text-area" [formControlName]="i">
+          <button mat-stroked-button (click)="deleteEquipment(i)"><mat-icon>cancel</mat-icon></button>
+        </div>
+      </div>
+      <button mat-stroked-button color="accent" class="add-button" (click)="addEquipment()">
+       <mat-icon>add</mat-icon>
+     </button>
+       <button mat-stroked-button color="accent" (click)="submitCarEquipment()"> Edytuj Opisy</button>
+    </div>
   </form>
 
   <!-- // opis -->
-  <form fxLayout="column" [formGroup]="carDescriptionForm">
+  <form [formGroup]="carDescriptionForm" fxLayoutAlign="center">
+    <div fxLayout="column">
       <h2> Opis </h2>
-  <!--    <div formArrayName="descriptions">-->
-  <!--      <div *ngFor="let description of carForm.get('descriptions').controls; index as i">-->
-  <!--        <input type="text" [formControlName]="i">-->
-  <!--      </div>-->
-  <!--    </div>-->
-      <button mat-stroked-button color="accent" (click)="submitCarDescription()"> Edytuj Opisy</button>
+      <div formArrayName="descriptions">
+        <div *ngFor="let description of descriptions.controls; index as i">
+          <textarea rows="4" class="text-area" [formControlName]="i"></textarea>
+          <button mat-stroked-button class="delete-button" (click)="deleteDescription(i)"><mat-icon>cancel</mat-icon></button>
+         </div>
+       </div>
+       <button mat-stroked-button color="accent" class="add-button" (click)="addDescription()">
+        <mat-icon>add</mat-icon>
+      </button>
+        <button mat-stroked-button color="accent" (click)="submitCarDescription()"> Edytuj Opisy</button>
+    </div>
   </form>
 
   <!-- // cena -->

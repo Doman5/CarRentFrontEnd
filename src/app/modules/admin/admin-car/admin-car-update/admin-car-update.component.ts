@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { FormCategoryService } from '../admin-car-form/form-category.service';
@@ -9,6 +9,8 @@ import { AdminCarPhotoDto } from '../model/admin-car-photo-dto';
 import { AdminCarPriceDto } from '../model/admin-car-price-dto';
 import { AdminCarTechnicalSpecificationDto } from '../model/admin-car-technical-specification-dto';
 import { AdminCategoryDto } from '../model/admin-category-dto';
+import { AdminDescriptionDto } from '../model/admin-description-dto';
+import { AdminEquipmentDto } from '../model/admin-equipment-dto';
 import { AdminCarUpdateService } from './admin-car-update.service';
 
 @Component({
@@ -30,6 +32,7 @@ export class AdminCarUpdateComponent implements OnInit{
   requiredFileTypes = "image/jpeg, image/png";
   image: string | null = null;
   photos!: AdminCarPhotoDto[];
+
   
   constructor(
     private router: ActivatedRoute,
@@ -60,15 +63,6 @@ export class AdminCarUpdateComponent implements OnInit{
           fuel: [''],
           seats: ['']
         });
-        
-        this.carEquipmentForm = this.formBuilder.group({
-          
-        });
-
-        this.carDescriptionForm = this.formBuilder.group({
-
-        });
-
         this.getCarPrice();
         this.carPriceForm = this.formBuilder.group({
           priceDay: [''],
@@ -90,6 +84,14 @@ export class AdminCarUpdateComponent implements OnInit{
           file: ['']
         })
         this.getCarPhotos();
+        this.carDescriptionForm = this.formBuilder.group({
+          descriptions: this.formBuilder.array([])
+        })
+        this.getCarDescriptions();
+        this.carEquipmentForm = this.formBuilder.group({
+          equipments: this.formBuilder.array([])
+        })
+        this.getCarEquipment();
       }
 
   getBasicInfo() {
@@ -161,11 +163,81 @@ export class AdminCarUpdateComponent implements OnInit{
   }
 
   submitCarEquipment() {
+    let id = Number(this.router.snapshot.params['id']);
+    this.adminCarUpdateService.updateEquipment(this.equipments.value, id)
+    .subscribe(equipments => {
+      equipments.forEach(equipment => this.mapEquipmentValue(equipment));
+      this.snacbar.open("Zaktualizowane wyposażenie samochodu!", "", {duration:3000});
+    }
+    )
+  }
 
+  getCarEquipment() {
+    let id = Number(this.router.snapshot.params['id']);
+    this.adminCarUpdateService.getEquipments(id)
+      .subscribe(equipments => {
+        for(let equipment of equipments) {
+          this.equipments.push(this.mapEquipmentValue(equipment));
+        }
+      })
+  }
+
+  mapEquipmentValue(equipment: AdminEquipmentDto):FormControl {
+    let control = new FormControl();
+    control.setValue(equipment.name);
+    return control;
+    
+  }
+
+  get equipments() {
+    return this.carEquipmentForm.get('equipments') as FormArray;
+  }
+  
+  addEquipment() {
+    this.equipments.push(this.formBuilder.control(''));
+  }
+
+  deleteEquipment(index: number) {
+    this.equipments.removeAt(index);
   }
 
   submitCarDescription() {
+    let id = Number(this.router.snapshot.params['id']);
+    this.adminCarUpdateService.updateDescriptions(this.descriptions.value, id)
+    .subscribe( descriptions => {
+      descriptions.forEach(description => this.mapDescriptionValue(description));
+      this.snacbar.open("Zaktualizowane opisy samochodu!", "", {duration:3000});
+    }
+    )
+  }
 
+  getCarDescriptions() {
+    let id = Number(this.router.snapshot.params['id']);
+    this.adminCarUpdateService.getDescriptions(id)
+      .subscribe(descriptions => {
+        for(let description of descriptions) {
+          this.descriptions.push(this.mapDescriptionValue(description));
+        }
+      })
+  }
+
+  mapDescriptionValue(description: AdminDescriptionDto):FormControl {
+    let control = new FormControl();
+    control.setValue(description.description);
+    return control;
+    
+  }
+
+  get descriptions() {
+    return this.carDescriptionForm.get('descriptions') as FormArray;
+  }
+  
+  addDescription() {
+    this.descriptions.push(this.formBuilder.control(''));
+  }
+
+  deleteDescription(index: number) {
+    this.descriptions.removeAt(index);
   }
 
   getCarPrice() {

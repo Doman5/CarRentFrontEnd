@@ -6,3 +6,15 @@
 .car-photo-div {
     padding: 10px;
 }
+
+.text-area {
+    width: 700px;
+}
+
+.delete-button {
+margin-top: -50px;
+}
+
+.add-button {
+    width: 770px;
+}

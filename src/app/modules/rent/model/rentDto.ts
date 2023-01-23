@@ -3,6 +3,7 @@ export interface RentDto {
     grossValue: number,
     rentalPrice: number,
     returnPrice: number,
+    deposit: number,
     rentalPlace: string,
     returnPlace: string,
     rentalDate: Date,

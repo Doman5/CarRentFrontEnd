@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Car } from '../model/car';
+import { CarBasicInfo } from '../model/carBasicInfo';
 import { CarDetailService } from './car-detail.service';
 
 @Component({
@@ -12,6 +13,7 @@ export class CarDetailComponent implements OnInit {
 
   car!: Car;
   slug!: string;
+  recommendedCars!: CarBasicInfo[];
 
   constructor(
     private router: ActivatedRoute,
@@ -19,17 +21,23 @@ export class CarDetailComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
-    this.getSlug();
+    this.slug = this.getSlug();
     this.getCar();
+    this.getRecomendedCars();
   }
 
   getCar() {
-    let slug = this.router.snapshot.params['slug'];
-    this.carDetailService.getCar(slug)
+    
+    this.carDetailService.getCar(this.getSlug())
       .subscribe(car => this.car = car);
   }
 
   getSlug() {
-    this.slug = this.router.snapshot.params['slug'];
+    return this.router.snapshot.params['slug'];
+  }
+
+  getRecomendedCars() {
+    this.carDetailService.getRecommendedCars(this.getSlug())
+      .subscribe(recommended => this.recommendedCars =recommended)
   }
 }

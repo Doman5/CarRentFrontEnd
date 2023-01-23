@@ -94,7 +94,11 @@
         <mat-tab label="Autoryzacja" *ngIf="!chosenCar" disabled></mat-tab>
         <mat-tab label="Autoryzacja" *ngIf="chosenCar" (selectedIndexChange)="choseMenuOption($event)">
             <div class="authorization" fxLayout="row">
-                <div class="login" fxFlex="50">
+                <div *ngIf="isLoggedIn" fxFlex="50" class="logged-user">
+                    <h1> Jesteś zalogowany</h1>
+                    <button mat-stroked-button (click)="goToPayment()">Przejdź dalej</button>
+                </div>
+                <div *ngIf="!isLoggedIn" class="login" fxFlex="50">
                     <h1> Mam konto</h1>
                     <form [formGroup]="loginForm" fxLayout="column">
                         <mat-form-field>
@@ -197,8 +201,8 @@
             <h2> Okres najmu </h2>
                 <div class="info-block">
                     <p>Ilość dni: {{chosenCar.days}}</p>
-                    <p>od: {{chosenCar.rentalDate | date:'dd-MM-yyyy hh:mm'}} </p>
-                    <p>do: {{chosenCar.returnDate | date:'dd-MM-yyyy hh:mm'}}</p>
+                    <p>od: {{chosenCar.rentalDate | date:'dd-MM-yyyy HH:mm'}} </p>
+                    <p>do: {{chosenCar.returnDate | date:'dd-MM-yyyy HH:mm'}}</p>
                 </div>
             <h2>Koszta</h2>
             <div class="info-block">
@@ -207,7 +211,7 @@
                 <p>Cena odbioru z {{chosenCar.returnPlace}}: {{chosenCar.returnPrice | number:'1.2-2'}}zł</p>
                 <p>Cena auta: {{chosenCar.grossValue}}zł</p>
                 <p>Cena ostateczna: {{chosenCar.finalPrice | number:'1.2-2'}}zł </p>
-                <p>Sposób płatności: {{initData.paymentTypes.at(chosenPaymentId)?.name}}</p>
+                <p>Sposób płatności: {{initData.paymentTypes.at(chosenPaymentId-1)?.name}}</p>
             </div>
             <h2> Limity najmu</h2>
             <div class="info-block">
@@ -221,7 +225,35 @@
       </mat-tab-group>
 </div>
 <div *ngIf="rentSummary">
-    Podsumowanie
+    <h1>Podsumowanie</h1>
+
+    <h1> Dziekujemy za wybranie naszych usług</h1>
+
+    <div *ngIf="rentSummary.paymentName === 'Przelew bankowy'">
+        <h3>Wybrano płatność przelewem bankowym</h3>
+        <h3> Prosimy o dokonanie przelwu na kwote {{rentSummary.finalPrice}}zł na nr. konta PL 96 1560 1111 7192 7142 8460 5595 w tytule prosimy podać nr zamówienia</h3>
+        <h3> Jeśli przelew nie zostanie dokonany w ciągu 7 dni to rezerwacja będzie anulowana</h3>
+    </div>
+    <div *ngIf="rentSummary.paymentName === 'Przelewy24'">
+        <h3>Dziekujemy za opłacenie zamówienia przez portal Przelewy24</h3>
+    </div>
+    <div *ngIf="rentSummary.paymentName === 'Przy odbiorze'">
+        <h3>Wybrano płatność przy odbiorze</h3>
+        <h3>Prosimy o dokonanie przelwu na kwote {{rentSummary.finalPrice * 0.25}}zł na nr. konta PL 96 1560 1111 7192 7142 8460 5595 w tytule prosimy podać nr zamówienia</h3>
+        <h3>Reszte opłacisz przy odbiorze auta ({{rentSummary.finalPrice * 0.75}}zł)</h3>
+        <h3> Jeśli przelew nie zostanie dokonany w ciągu 7 dni to rezerwacja będzie anulowana</h3>
+    </div>
+    <div>
+        <h2> Twoja Rezerwacja </h2>
+        <h3>id: {{rentSummary.id}}</h3>
+        <h3>Nazwa auta: {{rentSummary.carName}}</h3>
+        <h3>Wartość(Cena auta + cena transportu): {{rentSummary.priceWithoutDeposit}}zł/brutto</h3>
+        <h3>Kaucja: {{rentSummary.deposit}}zł</h3>
+        <h3>Cena finalna: {{rentSummary.finalPrice}}zł</h3>
+        <h3>Miejsce wynajmu: {{rentSummary.rentalPlace}}</h3>
+        <h3>Data wynajmu: {{rentSummary.rentalDate | date:"dd-MM-yyyy HH:mm"}}</h3>
+        <h3>Miejsce oddania: {{rentSummary.returnPlace}}</h3>
+        <h3>Data oddania: {{rentSummary.returnDate | date:"dd-MM-yyyy HH:mm"}}</h3>
 </div>
 
 

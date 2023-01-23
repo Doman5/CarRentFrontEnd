@@ -9,6 +9,7 @@ import { PaymentDto } from './model/paymentDto';
 import { RentCar } from './model/rentCar';
 import { RentDateAndPlace } from './model/rentDateAndPlace';
 import { RentDto } from './model/rentDto';
+import { RentSummary } from './model/rentSummary';
 import { RentService } from './rent.service';
 
 @Component({
@@ -37,13 +38,13 @@ export class RentComponent implements OnInit {
   chosenCar!: RentCar | undefined;
   userLogged!: boolean | undefined;
   chosenPaymentId!: number | undefined;
-  rentSummary!: any;
+  rentSummary!: RentSummary;
   loginError = false;
   registerError = false;
   registerErrorMessage!: string;
   initData!: InitRent;
   searchError!: string;
-  
+  isLoggedIn!: boolean;
 
   ngOnInit(): void {
     this.today = this.addHours(new Date(), 4);
@@ -75,12 +76,16 @@ export class RentComponent implements OnInit {
     })
     this.setDefaultFormValues();
     this.getRentsCars(this.placeDateForm.value, false, "Malejaco");
-    
+    this.checkIsLoggedIn();
   }
   
   getRentsCars(placeAndDate: RentDateAndPlace, onlyAvailable: boolean, sortingType: string) {
     this.rentService.getRentCars(placeAndDate, onlyAvailable, sortingType)
       .subscribe(cars => this.cars = cars);
+  }
+
+  checkIsLoggedIn() {
+    this.isLoggedIn = this.jwtService.isLoggedIn()
   }
 
   searchCar() {
@@ -128,7 +133,6 @@ export class RentComponent implements OnInit {
       }
       if(event === 1) {
         this.userLogged = undefined;
-        localStorage.removeItem("token");
       }
 
       if(event === 2) {
@@ -150,7 +154,11 @@ export class RentComponent implements OnInit {
           }
         })
     }
+  }
 
+  goToPayment() {
+    this.userLogged = true;
+    this.matTabGroup.selectedIndex = 2;
   }
 
   register() {
@@ -195,14 +203,15 @@ export class RentComponent implements OnInit {
   reserve() {
     this.rentService.placeRent({
       carId: this.chosenCar?.carId,
-      grossValue: this.chosenCar?.grossValue,
+      priceWithoutDeposit: this.chosenCar?.grossValue,
       rentalPrice: this.chosenCar?.rentalPrice,
       returnPrice: this.chosenCar?.returnPrice,
       rentalPlace: this.chosenCar?.rentalPlace,
       returnPlace: this.chosenCar?.returnPlace,
       rentalDate: this.chosenCar?.rentalDate,
       returnDate: this.chosenCar?.returnDate,
-      paymentId: this.chosenPaymentId
+      paymentId: this.chosenPaymentId,
+      deposit: this.chosenCar?.deposit
     } as unknown as RentDto).subscribe(
       rentSummary => this.rentSummary = rentSummary
     )

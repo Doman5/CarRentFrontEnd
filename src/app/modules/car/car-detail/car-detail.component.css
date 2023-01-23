@@ -19,3 +19,29 @@
     text-decoration: none;
     color: black;
 }
+
+h1 {
+  
+    color:rgb(0, 255, 153);
+  }
+  
+  .car-card {
+    width: 300px;
+      margin-top: 25px;
+      text-align: center;
+      background-color: white;
+  }
+  
+  .spec-table > td {
+      text-align: left;
+      width: 100px;
+  }
+  
+  mat-card-title {
+      text-align: center;
+  }
+  
+  mat-card-subtitle {
+      text-align: center;
+      color: black;    
+  }

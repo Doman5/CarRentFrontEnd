@@ -4,11 +4,11 @@
             <h1> Wynajmij {{car.brand}} {{car.model}} {{car.year}} </h1>
         </div>
         <div class="fast-menu">
-            <button mat-stroked-button><a href="{{slug}}#tech"> Opis </a></button>
-            <button mat-stroked-button><a href="{{slug}}#description"> Opis </a></button>
-            <button mat-stroked-button><a href="{{slug}}#equipment"> Wyposażenie </a></button>
-            <button mat-stroked-button><a href="{{slug}}#photo"> Zdjęcia </a></button>
-            <button mat-stroked-button><a href="{{slug}}#price"> Cennik </a></button>
+            <button mat-stroked-button><a href="/Auta/{{slug}}#tech"> Opis </a></button>
+            <button mat-stroked-button><a href="/Auta/{{slug}}#description"> Opis </a></button>
+            <button mat-stroked-button><a href="/Auta/{{slug}}#equipment"> Wyposażenie </a></button>
+            <button mat-stroked-button><a href="/Auta/{{slug}}#photo"> Zdjęcia </a></button>
+            <button mat-stroked-button><a href="/Auta/{{slug}}#price"> Cennik </a></button>
         </div>
         <div class="tech" id="tech">
             <h2>Specyfikacja</h2>
@@ -68,10 +68,10 @@
                 </li>
             </ul>
         </div>
-        <div class="photos" id="photo">
+        <div class="photos" id="photo" >
             <h2>Zdjecia</h2>
             <div *ngFor="let photo of car.photos">
-                <img src="{{'/api/data/carPhotos/' + photo.photo}}" width="600">
+                <img src="{{'/api/data/carPhotos/' + photo.photo}}" width="500">
             </div>
         </div>
         <div class="prices" id="price">
@@ -115,12 +115,50 @@
         <div class="similiar-cars">
     
         </div>
+        <div>
+            <h1> Mogą ciebie również zainteresować</h1>
+            <div fxLayout="row" fxLayoutGap="50">
+                <mat-card *ngFor="let car of recommendedCars" class="car-card">
+                    <a routerLink="{{'/cars/' + car.slug}}">
+                      <img *ngIf="!car.photo" src="/assets/image-placeholder.png" width="700" mat-card-xl-image>
+                      <img *ngIf="car.photo" src="{{'/api/data/carPhotos/' + car.photo}}" mat-card-xl-image>
+                    </a>
+                    <mat-card-header fxLayoutAlign="center center">
+                      <mat-card-title>{{car.brand}} {{car.model}}</mat-card-title>
+                      <mat-card-subtitle>{{car.year}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                      <div>
+                        <div class="car-price">
+                          <h2> od <b> {{car.priceMonth}} </b> zł </h2>
+                          <p class="price-information"> cena netto/doba przy wynajmie na min 30 dni </p>
+                        </div>
+                        <div class="car-specification" fxLayoutAlign="center center">
+                          <table class="spec-table">
+                            <tr>
+                              <td><mat-icon>alarm</mat-icon> {{car.acceleration}}s do 100km/h</td>
+                              <td><mat-icon>sync</mat-icon> {{car.gearbox}}</td>
+                            </tr>
+                            <tr>
+                              <td><mat-icon> directions_car</mat-icon>{{car.power}} KM</td>
+                              <td><mat-icon>event_seat</mat-icon>{{car.seats}}</td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                    </mat-card-content>
+                    <mat-card-actions>
+                      <button mat-button color="accent" fxFlex routerLink="/Auta/{{car.slug}}">Szczegóły</button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </div>
     </div>
     <div class="rent-card" fxFlex="30">
         <mat-card class="car-card">
               <img *ngIf="!car.photos.at(0)" src="/assets/image-placeholder.png" width="400">
               <img *ngIf="car.photos.at(0)" src="{{'/api/data/carPhotos/' + car.photos[0].photo}}">
-            <mat-card-header fxLayoutAlign="center center">
+            <mat-card-header >
               <mat-card-title>{{car.brand}} {{car.model}}</mat-card-title>
               <mat-card-subtitle>{{car.year}}</mat-card-subtitle>
             </mat-card-header>

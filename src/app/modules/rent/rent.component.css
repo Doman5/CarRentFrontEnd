@@ -67,3 +67,7 @@
 .error {
     color: red;
 }
+
+.logged-user {
+    padding-top: 60px;
+}

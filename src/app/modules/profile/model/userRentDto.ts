@@ -9,5 +9,7 @@ export interface UserRentDto {
     rentalDate: Date,
     returnPlace: string,
     returnDate: Date,
-    grossValue: number
+    priceWithoutDeposit: number,
+    deposit: number,
+    finalPrice: number
 }

@@ -12,6 +12,8 @@
                 <td> Data Oddania </td>
                 <td> Miejsce Oddania </td>
                 <td> Wartość </td>
+                <td> Kaucja </td>
+                <td> Cena finalna</td>
             </tr>
         </thead>
         <tr *ngFor="let rent of userRents">
@@ -23,7 +25,9 @@
             <td>{{rent.rentalPlace}}</td>
             <td>{{rent.returnDate | date:"dd-MM-yyyy hh:mm"}}</td>
             <td>{{rent.returnPlace}}</td>
-            <td>{{rent.grossValue}} zł</td>
+            <td>{{rent.priceWithoutDeposit}}zł</td>
+            <td>{{rent.deposit}}zł</td>
+            <td>{{rent.finalPrice}}zł</td>
         </tr>
     </table>
 </div>

@@ -32,7 +32,7 @@ export class ProfileComponent implements OnInit {
     this.userForm = this.formBuilder.group({
       username:['', Validators.required],
       firstName: ['', Validators.required],
-      secondName: ['', Validators.required],
+      lastName: ['', Validators.required],
       phone:['', Validators.required]
     });
   }
@@ -51,7 +51,7 @@ export class ProfileComponent implements OnInit {
     this.userForm.patchValue({
       username: userInfo.username,
       firstName: userInfo.firstName,
-      secondName: userInfo.secondName,
+      lastName: userInfo.lastName,
       phone: userInfo.phone,
     })
   }

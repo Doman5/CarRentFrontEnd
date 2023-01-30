@@ -18,6 +18,8 @@ import { RegisterComponent } from './modules/register/register.component';
 import { ProfileComponent } from './modules/profile/profile.component';
 import { AdminRentComponent } from './modules/admin/admin-rent/admin-rent.component';
 import { AdminRentUpdateComponent } from './modules/admin/admin-rent/admin-rent-update/admin-rent-update.component';
+import { AdminUsersComponent } from './modules/admin/admin-users/admin-users.component';
+import { AdminUsersUpdateComponent } from './modules/admin/admin-users-update/admin-users-update.component';
 
 const routes: Routes = [
   {
@@ -43,6 +45,8 @@ const routes: Routes = [
       {path: 'admin/login', component: AdminLoginComponent},
       {path: 'admin/rents', component: AdminRentComponent},
       {path: 'admin/rents/update/:id', component: AdminRentUpdateComponent},
+      {path: 'admin/users', component: AdminUsersComponent},
+      {path: 'admin/users/update/:username', component: AdminUsersUpdateComponent},
     ]
   }
 ];

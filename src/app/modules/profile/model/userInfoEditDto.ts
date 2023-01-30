@@ -2,6 +2,6 @@ export interface UserInfoEditDto {
     username:string,
     password: string,
     firstName:string,
-    secondName: string,
+    lastName: string,
     phone: string,
 }

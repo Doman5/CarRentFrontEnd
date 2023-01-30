@@ -1,6 +1,6 @@
 export interface UserInfoDto {
     username:string,
     firstName:string,
-    secondName: string,
+    lastName: string,
     phone: string
 }

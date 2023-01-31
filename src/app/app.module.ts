@@ -11,7 +11,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { JwtInterceptor } from './modules/common/interceptor/jwt.interceptor';
 import { AdminAuthorizationGuard } from './modules/common/guard/adminAuthorizationGuard';
 import { AdminUsersComponent } from './modules/admin/admin-users/admin-users.component';
-import { AdminUsersUpdateComponent } from './modules/admin/admin-users-update/admin-users-update.component';
+import { AdminUsersUpdateComponent } from './modules/admin/admin-users/admin-users-update/admin-users-update.component';
 
 @NgModule({
   declarations: [

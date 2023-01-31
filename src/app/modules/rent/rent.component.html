@@ -210,7 +210,7 @@
                 <p>Cena dostarczenia do {{chosenCar.rentalPlace}}: {{chosenCar.rentalPrice | number:'1.2-2'}}zł</p>
                 <p>Cena odbioru z {{chosenCar.returnPlace}}: {{chosenCar.returnPrice | number:'1.2-2'}}zł</p>
                 <p>Cena auta: {{chosenCar.grossValue}}zł</p>
-                <p>Cena ostateczna: {{chosenCar.finalPrice | number:'1.2-2'}}zł </p>
+                <p>Cena auta z transportem: {{chosenCar.finalPrice | number:'1.2-2'}}zł </p>
                 <p>Sposób płatności: {{initData.paymentTypes.at(chosenPaymentId-1)?.name}}</p>
             </div>
             <h2> Limity najmu</h2>
@@ -249,7 +249,7 @@
         <h3>Nazwa auta: {{rentSummary.carName}}</h3>
         <h3>Wartość(Cena auta + cena transportu): {{rentSummary.priceWithoutDeposit}}zł/brutto</h3>
         <h3>Kaucja: {{rentSummary.deposit}}zł</h3>
-        <h3>Cena finalna: {{rentSummary.finalPrice}}zł</h3>
+        <h3>Cena z kaucją: {{rentSummary.finalPrice}}zł</h3>
         <h3>Miejsce wynajmu: {{rentSummary.rentalPlace}}</h3>
         <h3>Data wynajmu: {{rentSummary.rentalDate | date:"dd-MM-yyyy HH:mm"}}</h3>
         <h3>Miejsce oddania: {{rentSummary.returnPlace}}</h3>

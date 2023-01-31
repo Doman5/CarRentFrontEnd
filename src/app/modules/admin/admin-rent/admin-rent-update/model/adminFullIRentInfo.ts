@@ -10,6 +10,6 @@ export interface AdminFullRentInfo {
     rentalPlace: string,
     returnDate: Date,
     returnPlace: string,
-    grossValue: number,
+    finalPrice: number,
     rentLogs: AdminRentLogDto[]
 }

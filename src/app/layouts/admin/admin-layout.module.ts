@@ -16,7 +16,7 @@ import { AdminLoginComponent } from 'src/app/modules/admin/admin-login/admin-log
 import { AdminRentComponent } from 'src/app/modules/admin/admin-rent/admin-rent.component';
 import { AdminRentUpdateComponent } from 'src/app/modules/admin/admin-rent/admin-rent-update/admin-rent-update.component';
 import { AdminUsersComponent } from 'src/app/modules/admin/admin-users/admin-users.component';
-import { AdminUsersUpdateComponent } from 'src/app/modules/admin/admin-users-update/admin-users-update.component';
+import { AdminUsersUpdateComponent } from 'src/app/modules/admin/admin-users/admin-users-update/admin-users-update.component';
 
 @NgModule({
   declarations: [

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AdminUsersService } from '../admin-users/admin-users.service';
-import { AdminUserDto } from '../admin-users/model/adminUserDto';
+import { AdminUsersService } from '../admin-users.service';
+import { AdminUserDto } from '../model/adminUserDto';
 
 @Component({
   selector: 'app-admin-users-update',
@@ -17,7 +18,8 @@ export class AdminUsersUpdateComponent implements OnInit {
   constructor(
     private adminUserService: AdminUsersService,
     private formBuilder: FormBuilder,
-    private router: ActivatedRoute) {}
+    private router: ActivatedRoute,
+    private snackBar: MatSnackBar) {}
  
   ngOnInit(): void {
     this.userForm = this.formBuilder.group({
@@ -81,7 +83,10 @@ export class AdminUsersUpdateComponent implements OnInit {
   changeRoles() {
     let username = this.router.snapshot.params['username'];
     this.adminUserService.patchRoles(this.rolesForm.value, username)
-      .subscribe(user => this.mapUserFormValues(user))
+      .subscribe(user =>{
+        this.mapUserFormValues(user);
+        this.snackBar.open("Edytowano role!", '', {duration: 3000})
+      })
   }
 }
 
